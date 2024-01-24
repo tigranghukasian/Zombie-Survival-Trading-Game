@@ -685,6 +685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryObject: {fileID: 11400000, guid: ac04c930cf423ee419e1c9acc8197f41, type: 2}
   inventorySlotPrefab: {fileID: 5188531923364806875, guid: 2addc48462147034abbf7a782e7666e8, type: 3}
+  mouseObjectDisplayPrefab: {fileID: 6346693442535435213, guid: f419054d5dfc65549bd40d449f99aa4f, type: 3}
 --- !u!222 &952228059
 CanvasRenderer:
   m_ObjectHideFlags: 0

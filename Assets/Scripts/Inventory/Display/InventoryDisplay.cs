@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Inventory : MonoBehaviour
+public class InventoryDisplay : MonoBehaviour
 {
     [SerializeField] private InventoryObject inventoryObject;
     [SerializeField] private GameObject inventorySlotPrefab;
@@ -16,9 +16,12 @@ public class Inventory : MonoBehaviour
     private InventoryItemDisplay mouseObject;
 
     private InventorySlot selectedSlot;
+
+    private InventorySlot selectedSlotData;
     //private 
     private void Start()
     {
+        inventoryObject.Load();
         CreateSlots();
     }
 
@@ -47,19 +50,29 @@ public class Inventory : MonoBehaviour
             if (inventorySlots[invSlot].Id >= 0)
             {
                 mouseObject = Instantiate(mouseObjectDisplayPrefab, transform.parent).GetComponent<InventoryItemDisplay>();
-                mouseObject.SetSprite(inventoryObject.DatabaseObject.GetItem[inventorySlots[invSlot].Id].sprite);
+                mouseObject.SetSprite(inventoryObject.Database.GetItem[inventorySlots[invSlot].Id].sprite);
                 mouseObject.GetComponent<Image>().raycastTarget = false;
                 selectedSlot = inventorySlots[invSlot];
                 isSelected = true;
+                selectedSlotData = new InventorySlot( selectedSlot.Id,selectedSlot.Item,selectedSlot.Amount);
+                selectedSlot.UpdateSlot(-1, null, 0);
             }
         }
         else
         {
             InventorySlot currentSlot = inventorySlots[invSlot];
-            InventorySlot tempSlot = new InventorySlot(currentSlot.Id, currentSlot.Item, currentSlot.Amount);
-            inventorySlots[invSlot] = selectedSlot;
-            selectedSlot = tempSlot;
+            MoveItem(currentSlot, selectedSlot, selectedSlotData);
+            selectedSlot = null;
+            isSelected = false;
+            Destroy(mouseObject.gameObject);
         }
+    }
+
+    private void MoveItem(InventorySlot slot1, InventorySlot slot2, InventorySlot slot2Data)
+    {
+        slot2.UpdateSlot(slot1.Id, slot1.Item, slot1.Amount);
+        slot1.UpdateSlot(slot2Data.Id, slot2Data.Item, slot2Data.Amount);
+
     }
 
     private void UpdateSlots()
@@ -68,7 +81,7 @@ public class Inventory : MonoBehaviour
         {
             if (_slot.Value.Id != -1)
             {
-                _slot.Key.GetComponentInChildren<InventoryItemDisplay>().SetSprite(inventoryObject.DatabaseObject.GetItem[_slot.Value.Item.Id].sprite);
+                _slot.Key.GetComponentInChildren<InventoryItemDisplay>().SetSprite(inventoryObject.Database.GetItem[_slot.Value.Item.ItemObject.Id].sprite);
                 _slot.Key.SetAmount(_slot.Value.Amount);
             }
             else
@@ -92,5 +105,10 @@ public class Inventory : MonoBehaviour
     {
         UpdateSlots();
         UpdateMouseObjectPosition();
+    }
+
+    private void OnApplicationQuit()
+    {
+        inventoryObject.Save();
     }
 }

@@ -9,29 +9,52 @@ using UnityEngine;
 public class InventoryObject : ScriptableObject
 {
     public string savePath;
-    private ItemDatabaseObject databaseObject;
+    private ItemDatabase database;
 
     [SerializeField] private Container container;
     public Container Container => container;
-    public ItemDatabaseObject DatabaseObject => databaseObject;
+    public ItemDatabase Database => database;
 
     private void OnEnable()
     {
-        databaseObject = Resources.Load<ItemDatabaseObject>("ItemDatabase");
+        database = Resources.Load<ItemDatabase>("ItemDatabase");
     }
 
     public void AddItem(Item _item, int _amount)
     {
-        for (int i = 0; i < container.Slots.Length; i++)
+        if (_item.ItemObject.stackSize <= 0)
         {
-            if (container.Slots[i].Id == _item.Id)
+            return;
+        }
+        while (_amount > 0)
+        {
+            bool added = false;
+            
+            for (int i = 0; i < container.Slots.Length; i++)
             {
-                container.Slots[i].AddAmount(_amount);
-                return;
+                if (container.Slots[i].Id == _item.ItemObject.Id && container.Slots[i].Amount < _item.ItemObject.stackSize)
+                {
+                    int spaceInSlot = _item.ItemObject.stackSize - container.Slots[i].Amount;
+                    int amountToAdd = Mathf.Min(spaceInSlot, _amount);
+
+                    container.Slots[i].AddAmount(amountToAdd);
+                    _amount -= amountToAdd;
+                    added = true;
+
+                    if (_amount <= 0) break;
+                }
+            }
+
+            if (!added)
+            {
+                if (SetFirstEmptySlot(_item, Mathf.Min(_item.ItemObject.stackSize, _amount)) == null)
+                {
+                    // TODO : INVENTORY FULL
+                    break;
+                }
+                _amount -= Mathf.Min(_item.ItemObject.stackSize, _amount);
             }
         }
-
-        SetFirstEmptySlot(_item, _amount);
 
     }
 
@@ -41,7 +64,7 @@ public class InventoryObject : ScriptableObject
         {
             if (Container.Slots[i].Id == -1)
             {
-                Container.Slots[i].UpdateSlot(_item.Id, _item, _amount);
+                Container.Slots[i].UpdateSlot(_item.ItemObject.Id, _item, _amount);
                 return Container.Slots[i];
             }
         }
@@ -52,25 +75,18 @@ public class InventoryObject : ScriptableObject
     [ContextMenu("Save")]
     public void Save()
     {
-        string saveData = JsonUtility.ToJson(this, true);
-        IFormatter formatter = new BinaryFormatter();
-        FileStream file = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Create, FileAccess.Write);
-        formatter.Serialize(file, saveData);
-        file.Close();
+        string json = JsonUtility.ToJson(container, true);
+        File.WriteAllText(string.Concat(Application.dataPath, savePath), json);
     }
 
     [ContextMenu("Load")]
     public void Load()
     {
-        if (File.Exists(string.Concat(Application.persistentDataPath, savePath)))
+        if (File.Exists(string.Concat(Application.dataPath, savePath)))
         {
-            
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Open,
-                FileAccess.Read);
-            container = (Container)formatter.Deserialize(stream);
-            stream.Close();
-            
+            string saveString = File.ReadAllText(string.Concat(Application.dataPath, savePath));
+            container = JsonUtility.FromJson<Container>(saveString);
+
         }
     }
 

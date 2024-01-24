@@ -13,6 +13,7 @@ public abstract class ItemObject : ScriptableObject
 {
     public int Id;
     public Sprite sprite;
+    public int stackSize = 64;
     public ItemType type;
     [TextArea(15,20)]
     public string description;
@@ -21,12 +22,11 @@ public abstract class ItemObject : ScriptableObject
 [System.Serializable]
 public class Item
 {
-    public string Name;
-    public int Id;
+    private ItemObject itemObject;
+    public ItemObject ItemObject => itemObject;
 
     public Item(ItemObject _item)
     {
-        Name = _item.name;
-        Id = _item.Id;
+        itemObject = _item;
     }
 }
