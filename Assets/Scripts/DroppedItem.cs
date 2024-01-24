@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class DroppedItem : MonoBehaviour
 {
-    [SerializeField] private ItemObject itemObject;
+    [SerializeField] private Item item;
+    [SerializeField] private int amount;
 
-    public ItemObject ItemObject => itemObject;
+    public Item Item => item;
+    public int Amount => amount;
 }

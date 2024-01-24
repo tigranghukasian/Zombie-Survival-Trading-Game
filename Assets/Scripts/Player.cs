@@ -5,19 +5,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private InventoryObject inventoryObject;
+    [SerializeField] private InventoryHolder inventoryHolder;
 
     public void OnTriggerEnter(Collider _other)
     {
-        if (_other.TryGetComponent(out DroppedItem item))
+        if (_other.TryGetComponent(out DroppedItem droppedItem))
         {
-            inventoryObject.AddItem(new Item(item.ItemObject), 1);
-            Destroy(item.gameObject);
+            inventoryHolder.Inventory.AddItem(droppedItem.Item, 1);
+            Destroy(droppedItem.gameObject);
         }
-    }
-
-    private void OnApplicationQuit()
-    {
-        inventoryObject.Clear();
     }
 }

@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7870d8d4d6232c40bf3a58247077b56, type: 3}
-  m_Name: Stone
+  m_Script: {fileID: 11500000, guid: 42526e5b7a1717e45b94785f6a6da893, type: 3}
+  m_Name: Berries
   m_EditorClassIdentifier: 
-  Id: 0
-  sprite: {fileID: 21300000, guid: 8e31990003bd422419105302d2ee715b, type: 3}
-  type: 3
+  id: 1
+  name: Berries
+  sprite: {fileID: 21300000, guid: 710cb31b40e23e24b83abd9d38c228cf, type: 3}
   description: 
+  stackSize: 32
+  type: 5

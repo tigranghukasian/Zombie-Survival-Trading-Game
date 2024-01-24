@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a752dbe402c3764fa0c015ee7ee27d0, type: 3}
-  m_Name: Berries
+  m_Script: {fileID: 11500000, guid: 0c8eac380ffa89745ba2fe33841263e7, type: 3}
+  m_Name: _ItemDatabase
   m_EditorClassIdentifier: 
-  Id: 0
-  sprite: {fileID: 21300000, guid: 710cb31b40e23e24b83abd9d38c228cf, type: 3}
-  type: 0
-  description: 
-  restoreHungerValue: 20
+  items:
+  - {fileID: 11400000, guid: 3680c2b39119e5b4891ac68b631cdfd6, type: 2}
+  - {fileID: 11400000, guid: 5bd0ee4a7ab2a684d8dc66d162665246, type: 2}
