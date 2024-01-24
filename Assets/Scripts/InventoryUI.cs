@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private Inventory inventory;
     [SerializeField] private Dictionary<InventorySlot, InventorySlotUI> inventorySlotUis = new Dictionary<InventorySlot, InventorySlotUI>();
     [SerializeField] private GameObject inventorySlotUiPrefab;
+    [SerializeField] private GameObject selectionUI;
     
 
     public void Init(Inventory _inventory)
@@ -20,6 +22,18 @@ public class InventoryUI : MonoBehaviour
             invSlot.GetComponent<InventorySlotUI>().Init(slot, inventory);
             inventorySlotUis.Add(slot, invSlot.GetComponent<InventorySlotUI>());
         }
+    }
+
+    public void SelectSlot(InventorySlot slot)
+    {
+        if (selectionUI == null)
+        {
+            return;
+        }
+        var selectedSlotUI = inventorySlotUis[slot];
+        selectionUI.gameObject.SetActive(true);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(selectedSlotUI.transform.parent.GetComponent<RectTransform>());
+        selectionUI.transform.position = selectedSlotUI.transform.position;
     }
     
     public void UpdateSlotUI(InventorySlot updatedSlot)

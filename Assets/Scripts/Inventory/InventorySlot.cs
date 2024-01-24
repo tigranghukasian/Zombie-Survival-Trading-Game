@@ -13,7 +13,8 @@ public class InventorySlot
 
     public int Id => id;
     public int Amount => amount;
-    private Action<InventorySlot> inventorySlotUpdatedCallback;
+    public Action<InventorySlot> inventorySlotUpdatedCallback { get; set; }
+    
 
     public InventorySlot(Action<InventorySlot> _inventorySlotUpdatedCallback)
     {

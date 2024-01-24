@@ -51,7 +51,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
     }
     public void UpdateItemUI(Sprite sprite, int amount)
     {
-        amountText.text = amount == 0? "": amount.ToString();
+        amountText.text = amount is 0 or 1? "": amount.ToString();
         inventoryItemUI.SetSprite(sprite, amount != 0);
     }
 

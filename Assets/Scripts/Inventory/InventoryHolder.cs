@@ -11,6 +11,7 @@ public class InventoryHolder : MonoBehaviour
     [SerializeField] private InventoryUI inventoryUI;
 
     public Inventory Inventory => inventory;
+    public InventoryUI InventoryUI => inventoryUI;
 
     private void Awake()
     {

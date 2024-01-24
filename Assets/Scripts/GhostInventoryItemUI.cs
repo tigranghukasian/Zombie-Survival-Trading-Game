@@ -13,7 +13,7 @@ public class GhostInventoryItemUI : MonoBehaviour
     public void SetSprite(Sprite sprite, int amount)
     {
         itemImage.sprite = sprite;
-        amountText.text = amount == 0? "": amount.ToString();
+        amountText.text = amount is 0 or 1? "": amount.ToString();
     }
 
     private void Update()

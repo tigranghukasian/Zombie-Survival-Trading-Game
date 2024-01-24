@@ -25,6 +25,7 @@ public abstract class Inventory
         return null;
     }
 
+
     public Inventory(int _inventorySize, ItemDatabase _database, Action<InventorySlot> inventorySlotUpdatedCallback)
     {
         slots = new InventorySlot[_inventorySize];
