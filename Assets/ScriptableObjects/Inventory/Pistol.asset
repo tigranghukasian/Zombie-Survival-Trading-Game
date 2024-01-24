@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f50ad15cfa01d4cb74fbc09c66bbfe, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  Id: 0
+  sprite: {fileID: 21300000, guid: 5df8f92db174dfb409857719ece63c8b, type: 3}
   type: 1
   description: 

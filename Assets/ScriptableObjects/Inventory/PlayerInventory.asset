@@ -12,4 +12,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93be3ae9dae9b2a4096e11f5c125ae1f, type: 3}
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
-  container: []
+  savePath: /inventory.save
+  container:
+    slots:
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0
+    - id: -1
+      item:
+        Name: 
+        Id: 0
+      amount: 0

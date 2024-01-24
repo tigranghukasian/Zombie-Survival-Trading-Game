@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a752dbe402c3764fa0c015ee7ee27d0, type: 3}
   m_Name: Berries
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  Id: 0
+  sprite: {fileID: 21300000, guid: 710cb31b40e23e24b83abd9d38c228cf, type: 3}
   type: 0
   description: 
-  restoreHungerValue: 0
+  restoreHungerValue: 20

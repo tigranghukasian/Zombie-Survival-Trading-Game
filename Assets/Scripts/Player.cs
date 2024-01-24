@@ -9,9 +9,9 @@ public class Player : MonoBehaviour
 
     public void OnTriggerEnter(Collider _other)
     {
-        if (_other.TryGetComponent(out Item item))
+        if (_other.TryGetComponent(out DroppedItem item))
         {
-            inventoryObject.AddItemObject(item.ItemObject, 1);
+            inventoryObject.AddItem(new Item(item.ItemObject), 1);
             Destroy(item.gameObject);
         }
     }
