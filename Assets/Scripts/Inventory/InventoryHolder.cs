@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InventoryHolder : MonoBehaviour
 {
-    [SerializeField] private int inventorySize;
+    [SerializeField] private InventoryType inventoryType;
     [SerializeField] protected Inventory inventory;
     [SerializeField] private ItemDatabase itemDatabase;
     [SerializeField] private InventoryUI inventoryUI;
@@ -14,7 +14,7 @@ public class InventoryHolder : MonoBehaviour
 
     private void Awake()
     {
-        inventory = new Inventory(inventorySize, itemDatabase, inventoryUI.UpdateSlotUI);
+        inventory = InventoryFactory.CreateInventory(inventoryType, itemDatabase, inventoryUI.UpdateSlotUI);
         inventoryUI.Init(inventory);
     }
 }

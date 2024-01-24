@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory
+public abstract class Inventory
 {
-    [SerializeField] private InventorySlot[] slots;
+    [SerializeField] protected InventorySlot[] slots;
     [SerializeField] private ItemDatabase itemDatabase;
 
     public ItemDatabase ItemDatabase => itemDatabase;
@@ -28,11 +28,6 @@ public class Inventory
     public Inventory(int _inventorySize, ItemDatabase _database, Action<InventorySlot> inventorySlotUpdatedCallback)
     {
         slots = new InventorySlot[_inventorySize];
-        for (int i = 0; i < slots.Length; i++)
-        {
-            slots[i] = new InventorySlot(inventorySlotUpdatedCallback);
-        }
-
         itemDatabase = _database;
     }
 

@@ -32,7 +32,7 @@ public class InventoryUI : MonoBehaviour
                 invSlot.UpdateItemUI(null, 0);
                 return;
             }
-            invSlot.UpdateItemUI(inventory.ItemDatabase.GetItem[updatedSlot.Id].sprite, updatedSlot.Amount);
+            invSlot.UpdateItemUI(inventory.ItemDatabase.GetItem(updatedSlot.Id)?.sprite, updatedSlot.Amount);
         }
     }
 }
