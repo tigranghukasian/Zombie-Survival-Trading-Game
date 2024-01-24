@@ -17,11 +17,21 @@ public class LightingManager : MonoBehaviour
             return;
         }
 
-        float speedFactor = 0.2f; // Adjust this value to control the speed of the day/night cycle
-        timeOfDay += Time.deltaTime * speedFactor;
-        timeOfDay %= 24;
-        UpdateLighting(timeOfDay / 24f);
-        
+        if (Application.isPlaying)
+        {
+            float speedFactor = 0.2f; // Adjust this value to control the speed of the day/night cycle
+            timeOfDay += Time.deltaTime * speedFactor;
+            timeOfDay %= 24;
+            UpdateLighting(timeOfDay / 24f);
+        }
+
+        else
+        {
+            UpdateLighting(timeOfDay / 24f);
+        }
+
+
+
     }
 
     private void UpdateLighting(float timePercent)

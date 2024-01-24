@@ -9,7 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField] private InventoryHolder equipmentHolder;
 
     private int selectedEquipmentSlot = 0;
-    private IEquipable equippedItem;
+    [SerializeField] private IEquipable equippedItem;
+    [SerializeField] private Gun gun;
 
     private void Awake()
     {
@@ -59,7 +60,7 @@ public class Player : MonoBehaviour
             selectedEquipmentSlot = slotIndex;
             var slot = equipmentHolder.Inventory.GetSlot(selectedEquipmentSlot);
             equipmentHolder.InventoryUI.SelectSlot(slot);
-
+            equippedItem = gun;
         }
     }
 
