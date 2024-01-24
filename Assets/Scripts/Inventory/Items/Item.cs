@@ -15,6 +15,7 @@ public abstract class Item : ScriptableObject
 {
     public int id;
     public string name;
+    public GameObject playerDisplay;
     public Sprite sprite;
     public string description;
     public int stackSize = 1;

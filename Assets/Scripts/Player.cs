@@ -9,8 +9,9 @@ public class Player : MonoBehaviour
     [SerializeField] private InventoryHolder equipmentHolder;
 
     private int selectedEquipmentSlot = 0;
-    [SerializeField] private IEquipable equippedItem;
-    [SerializeField] private Gun gun;
+    [SerializeField] private Transform itemParent;
+    private GameObject equippedItem;
+    private IEquipable equippedEquipable;
 
     private void Awake()
     {
@@ -19,13 +20,20 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        //quipmentHolder.Inventory.GetSlot(0).inventorySlotUpdatedCallback += SlotUpdated;
+        for (int i = 0; i < equipmentHolder.Inventory.GetSlotsLength(); i++)
+        {
+            equipmentHolder.Inventory.GetSlot(i).inventorySlotUpdatedCallback += SlotUpdated;
+        }
+       
         SelectEquipmentSlot(0);
     }
 
     private void SlotUpdated(InventorySlot slot)
     {
-        
+        if(equipmentHolder.Inventory.GetSlot(selectedEquipmentSlot) == slot)
+        {
+            UpdateEquippedItem(slot);
+        }
     }
 
     private void Update()
@@ -33,7 +41,7 @@ public class Player : MonoBehaviour
         CheckKeysForSelectingEquipment();
         if (Input.GetMouseButtonDown(0) && equippedItem != null)
         {
-            equippedItem.Fire();
+            equippedEquipable.Fire();
         }
     }
 
@@ -55,12 +63,30 @@ public class Player : MonoBehaviour
 
     private void SelectEquipmentSlot(int slotIndex)
     {
-        if (slotIndex < equipmentHolder.Inventory.GetSlotsLength()) // Assuming SlotsCount is the number of slots
+        selectedEquipmentSlot = slotIndex;
+        var slot = equipmentHolder.Inventory.GetSlot(selectedEquipmentSlot);
+        equipmentHolder.InventoryUI.SelectSlot(slot);
+        UpdateEquippedItem(slot);
+    }
+
+    private void UpdateEquippedItem(InventorySlot slot)
+    {
+        if (equippedItem != null)
         {
-            selectedEquipmentSlot = slotIndex;
-            var slot = equipmentHolder.Inventory.GetSlot(selectedEquipmentSlot);
-            equipmentHolder.InventoryUI.SelectSlot(slot);
-            equippedItem = gun;
+            Destroy(equippedItem);
+            equippedEquipable = null;
+        }
+
+        if (slot.Id == -1)
+        {
+            return;
+        }
+        var playerDisplay = equipmentHolder.Inventory.ItemDatabase.GetItem(slot.Id).playerDisplay;
+        if (playerDisplay != null)
+        {
+            var playerItem = Instantiate(playerDisplay, itemParent);
+            equippedItem = playerItem;
+            equippedEquipable = playerItem.GetComponent<IEquipable>();
         }
     }
 
