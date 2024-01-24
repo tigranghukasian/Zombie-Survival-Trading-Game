@@ -7,6 +7,11 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private InventoryHolder inventoryHolder;
 
+    private void Awake()
+    {
+        Application.targetFrameRate = -1;
+    }
+
     public void OnTriggerEnter(Collider _other)
     {
         if (_other.TryGetComponent(out DroppedItem droppedItem))
