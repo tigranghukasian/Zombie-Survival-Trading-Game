@@ -24,7 +24,7 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public void SelectSlot(InventorySlot slot)
+    public void AddSelectedCrownToSlot(InventorySlot slot)
     {
         if (selectionUI == null)
         {
@@ -32,7 +32,10 @@ public class InventoryUI : MonoBehaviour
         }
         var selectedSlotUI = inventorySlotUis[slot];
         selectionUI.gameObject.SetActive(true);
+        
+        //This had to be called, because otherwise the positioning of the selectedSlotUI was wrong
         LayoutRebuilder.ForceRebuildLayoutImmediate(selectedSlotUI.transform.parent.GetComponent<RectTransform>());
+        
         selectionUI.transform.position = selectedSlotUI.transform.position;
     }
     

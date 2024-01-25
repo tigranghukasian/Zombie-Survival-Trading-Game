@@ -16,7 +16,6 @@ public class ToolDetection : MonoBehaviour
             damageablesInRange.Add(damageable);
             damageable.OnDestroyed += RemoveDamageable;
         }
-        Debug.Log("TRIGGER ENTER" + other.name);
     }
 
     private void OnTriggerExit(Collider other)
@@ -27,7 +26,6 @@ public class ToolDetection : MonoBehaviour
             damageablesInRange.Remove(damageable);
             damageable.OnDestroyed -= RemoveDamageable;
         }
-        Debug.Log("TRIGGER EXit" + other.name);
     }
     
     private void RemoveDamageable(IDamageable damageable)

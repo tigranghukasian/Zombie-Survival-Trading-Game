@@ -2,20 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Axe : MonoBehaviour, IEquipable
+public class Axe : ToolEquipable
 {
-    [SerializeField]private ToolDetection toolDetection;
     [SerializeField] private float damageValue;
-    
-    public void Fire()
+
+    public override void Use()
     {
-        for (int i = 0; i < toolDetection.DamageablesInRange.Count; i++)
+        
+    }
+    
+    public override void Fire()
+    {
+        //Debug.Log("FIRE AXE");
+        for (int i = 0; i < ToolDetection.DamageablesInRange.Count; i++)
         {
-            var damageable = toolDetection.DamageablesInRange[i];
+            var damageable = ToolDetection.DamageablesInRange[i];
             if (damageable is TreeObject)
             {
                 damageable.TakeDamage(damageValue);
             }
         }
     }
+
 }

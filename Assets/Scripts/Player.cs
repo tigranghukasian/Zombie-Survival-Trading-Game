@@ -9,13 +9,18 @@ public class Player : MonoBehaviour
     [SerializeField] private InventoryHolder equipmentHolder;
 
     private int selectedEquipmentSlot = 0;
-    [SerializeField] private Transform itemParent;
-    private GameObject equippedItem;
-    private IEquipable equippedEquipable;
+    [SerializeField] private Transform toolParentTransform;
+    [SerializeField] private Animator animator;
+    [SerializeField] private PlayerAnimatorEventChecker playerAnimatorEventChecker;
+    [SerializeField] private ToolDetection toolDetection;
+
+    private bool playingAnimation;
+    private Equipable equippedItem;
 
     private void Awake()
     {
         Application.targetFrameRate = -1;
+        playerAnimatorEventChecker.OnHit += OnAnimationHit;
     }
 
     private void Start()
@@ -24,7 +29,6 @@ public class Player : MonoBehaviour
         {
             equipmentHolder.Inventory.GetSlot(i).inventorySlotUpdatedCallback += SlotUpdated;
         }
-       
         SelectEquipmentSlot(0);
     }
 
@@ -32,18 +36,35 @@ public class Player : MonoBehaviour
     {
         if(equipmentHolder.Inventory.GetSlot(selectedEquipmentSlot) == slot)
         {
-            UpdateEquippedItem(slot);
+            DestroyCurrentEquippedItem();
+            EquipSlot(slot);
+        }
+    }
+
+    private void OnAnimationHit()
+    {
+        playingAnimation = false;
+        if (equippedItem is ToolEquipable)
+        {
+            ToolEquipable toolEquipable = (ToolEquipable)equippedItem;
+            toolEquipable.Fire();
         }
     }
 
     private void Update()
     {
         CheckKeysForSelectingEquipment();
-        if (Input.GetMouseButtonDown(0) && equippedItem != null)
+        if (Input.GetMouseButton(0) && equippedItem != null)
         {
-            equippedEquipable.Fire();
+            equippedItem.Use();
+            if (equippedItem is ToolEquipable && !playingAnimation)
+            {
+                playingAnimation = true;
+                animator.SetTrigger("Swing");
+            }
         }
     }
+
 
     private void CheckKeysForSelectingEquipment()
     {
@@ -65,28 +86,46 @@ public class Player : MonoBehaviour
     {
         selectedEquipmentSlot = slotIndex;
         var slot = equipmentHolder.Inventory.GetSlot(selectedEquipmentSlot);
-        equipmentHolder.InventoryUI.SelectSlot(slot);
-        UpdateEquippedItem(slot);
+        equipmentHolder.InventoryUI.AddSelectedCrownToSlot(slot);
+        DestroyCurrentEquippedItem();
+        EquipSlot(slot);
     }
 
-    private void UpdateEquippedItem(InventorySlot slot)
+    private Item SelectedItem()
+    {
+        var slot = equipmentHolder.Inventory.GetSlot(selectedEquipmentSlot);
+        return equipmentHolder.Inventory.ItemDatabase.GetItem(slot.Id);
+    }
+
+    private void DestroyCurrentEquippedItem()
     {
         if (equippedItem != null)
         {
-            Destroy(equippedItem);
-            equippedEquipable = null;
+            Destroy(equippedItem.gameObject);
         }
+    }
 
+    private void EquipSlot(InventorySlot slot)
+    {
         if (slot.Id == -1)
         {
             return;
         }
-        var playerDisplay = equipmentHolder.Inventory.ItemDatabase.GetItem(slot.Id).playerDisplay;
+
+        Item slotItem = equipmentHolder.Inventory.ItemDatabase.GetItem(slot.Id);
+       
+        var playerDisplay = slotItem.playerDisplay;
         if (playerDisplay != null)
         {
-            var playerItem = Instantiate(playerDisplay, itemParent);
-            equippedItem = playerItem;
-            equippedEquipable = playerItem.GetComponent<IEquipable>();
+            var playerItem = Instantiate(playerDisplay, transform);
+            equippedItem = playerItem.GetComponent<Equipable>();
+            Debug.Log(" equiped item is " + equippedItem);
+            if (equippedItem is ToolEquipable)
+            {
+                ToolEquipable toolEquipable = (ToolEquipable)equippedItem;
+                toolEquipable.ToolDetection = toolDetection;
+                toolEquipable.transform.SetParent(toolParentTransform, false);
+            }
         }
     }
 

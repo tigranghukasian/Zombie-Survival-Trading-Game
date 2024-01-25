@@ -1,17 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pickaxe : MonoBehaviour, IEquipable
+public class Pickaxe : ToolEquipable
 {
-    [SerializeField]private ToolDetection toolDetection;
-    [SerializeField] private float damageValue;
     
-    public void Fire()
+    [SerializeField] private float damageValue;
+
+    public override void Use()
     {
-        for (int i = 0; i < toolDetection.DamageablesInRange.Count; i++)
+    }
+    
+    public override void Fire()
+    {
+        Debug.Log("FIRE PICKAXE");
+        for (int i = 0; i < ToolDetection.DamageablesInRange.Count; i++)
         {
-            var damageable = toolDetection.DamageablesInRange[i];
+            var damageable = ToolDetection.DamageablesInRange[i];
             if (damageable is OreObject)
             {
                 damageable.TakeDamage(damageValue);
