@@ -119,7 +119,6 @@ public class Player : MonoBehaviour
         {
             var playerItem = Instantiate(playerDisplay, transform);
             equippedItem = playerItem.GetComponent<Equipable>();
-            Debug.Log(" equiped item is " + equippedItem);
             if (equippedItem is ToolEquipable)
             {
                 ToolEquipable toolEquipable = (ToolEquipable)equippedItem;
