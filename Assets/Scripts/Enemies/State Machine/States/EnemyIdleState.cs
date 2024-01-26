@@ -14,7 +14,7 @@ public class EnemyIdleState : EnemyState
 
     public override void EnterState()
     {
-        
+        enemy.EnemySoundPlayer.StartPlayingContinuousRandomSounds(EnemySoundPlayer.SoundType.Idle, 1f, 5f);
     }
 
     public override void FrameUpdate()

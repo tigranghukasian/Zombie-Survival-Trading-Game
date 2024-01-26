@@ -20,6 +20,7 @@ public class Enemy : Damageable, IDamager
     public EnemyIdleState IdleState { get; set; }
     public EnemyChaseState ChaseState { get; set; }
     public EnemyAttackState AttackState { get; set; }
+    public EnemyDeadState DeadState { get; set; }
 
     [field: SerializeField] public float AttackDamage { get; set; } = 15f;
     [field: SerializeField] public float IdleMovementRange { get; set; } = 5f;
@@ -27,7 +28,9 @@ public class Enemy : Damageable, IDamager
     [SerializeField] private float sightRange;
     [SerializeField] private float attackRange;
     [SerializeField] private LayerMask playerMask;
+    [field: SerializeField] public RagdollEnabler RagdollEnabler { get; set; }
     [field: SerializeField] public Animator Animator { get; set; }
+    [field: SerializeField] public EnemySoundPlayer EnemySoundPlayer { get; set; }
 
     private Collider[] hitColliders = new Collider[10];
 
@@ -45,6 +48,7 @@ public class Enemy : Damageable, IDamager
         IdleState = new EnemyIdleState(this, StateMachine);
         ChaseState = new EnemyChaseState(this, StateMachine);
         AttackState = new EnemyAttackState(this, StateMachine);
+        DeadState = new EnemyDeadState(this, StateMachine);
     }
 
     private void Start()
@@ -99,6 +103,11 @@ public class Enemy : Damageable, IDamager
      public override void Kill()
      {
          base.Kill();
+         StateMachine.ChangeState(DeadState);
+     }
+
+     public void Destroy()
+     {
          Destroy(gameObject);
      }
 

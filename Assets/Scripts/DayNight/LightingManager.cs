@@ -9,6 +9,7 @@ public class LightingManager : MonoBehaviour
     [SerializeField] private Light directionalLight;
     [SerializeField] private LightingPreset preset;
     [SerializeField, Range(0, 24)] private float timeOfDay;
+    [SerializeField] private float speedFactor;
 
     private void Update()
     {
@@ -19,7 +20,7 @@ public class LightingManager : MonoBehaviour
 
         if (Application.isPlaying)
         {
-            float speedFactor = 0.2f; // Adjust this value to control the speed of the day/night cycle
+             // Adjust this value to control the speed of the day/night cycle
             timeOfDay += Time.deltaTime * speedFactor;
             timeOfDay %= 24;
             UpdateLighting(timeOfDay / 24f);
