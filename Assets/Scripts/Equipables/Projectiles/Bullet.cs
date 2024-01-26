@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float lifeTime;
+    [SerializeField] private GameObject bulletImpactPrefab;
 
     private float timeAlive = 0;
     private void Update()
@@ -21,7 +22,7 @@ public class Bullet : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
+        Instantiate(bulletImpactPrefab, other.ClosestPoint(transform.position), Quaternion.identity);
         Destroy(gameObject);
         // if (other.TryGetComponent(out IHealth))
         // {

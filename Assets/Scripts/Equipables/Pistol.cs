@@ -7,6 +7,8 @@ public class Pistol : PistolEquipable
 {
     
     [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject trailPrefab;
+    [SerializeField] private MuzzleFlash muzzleFlash;
     [SerializeField] private Transform firePos;
     [SerializeField] private float range = 100f;
     [SerializeField] private AudioClip fireSound;
@@ -15,6 +17,7 @@ public class Pistol : PistolEquipable
 
     public override void OnEquip()
     {
+        
         canFire = true;
     }
     public override void Use()
@@ -37,6 +40,10 @@ public class Pistol : PistolEquipable
         {
             SoundManager.Instance.PlayAudioClip(fireSound);
             var bulletObject = Instantiate(bullet,firePos.transform.position, PlayerTransform.rotation);
+            var trailObject = Instantiate(trailPrefab,firePos.position, PlayerTransform.rotation);
+            BulletTrail trail = trailObject.GetComponent<BulletTrail>();
+            trail.bulletTransform = bulletObject.transform;
+            muzzleFlash.Play();
             canFire = false;
             timePassed = 0;
         }
