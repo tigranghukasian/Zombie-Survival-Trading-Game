@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToolEquipable : Equipable
+public class PistolEquipable : Equipable
 {
-    public ToolDetection ToolDetection { get; set; }
+    public Transform PlayerTransform { get; set; }
     public override void OnEquip()
     {
         

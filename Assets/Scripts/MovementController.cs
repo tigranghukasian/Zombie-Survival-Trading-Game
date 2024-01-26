@@ -8,6 +8,8 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Animator animator;
+    [SerializeField] private Transform aimTransform;
+    
     private Rigidbody rb;
     private Vector3 movementVector;
 
@@ -33,9 +35,10 @@ public class MovementController : MonoBehaviour
             directionToMousePos = rayPoint - transform.position;
             float angleToRotate = Mathf.Atan2(directionToMousePos.z, directionToMousePos.x) * Mathf.Rad2Deg - 90f;
             transform.rotation = Quaternion.Euler(new Vector3(0, -angleToRotate + offset, 0));
+            aimTransform.transform.position = rayPoint;
         }
 
-        Debug.DrawLine(transform.position, directionToMousePos);
+       
 
         float angle = Vector3.SignedAngle(Vector3.forward, directionToMousePos, Vector3.up);
 

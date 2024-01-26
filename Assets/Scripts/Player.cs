@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class Player : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerAnimatorEventChecker playerAnimatorEventChecker;
     [SerializeField] private ToolDetection toolDetection;
-
+    [SerializeField] private Rig pistolRig;
     private bool playingAnimation;
     private Equipable equippedItem;
 
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
     {
         Application.targetFrameRate = -1;
         playerAnimatorEventChecker.OnHit += OnAnimationHit;
+        pistolRig.weight = 0;
     }
 
     private void Start()
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour
             equipmentHolder.Inventory.GetSlot(i).inventorySlotUpdatedCallback += SlotUpdated;
         }
         SelectEquipmentSlot(0);
+        
     }
 
     private void SlotUpdated(InventorySlot slot)
@@ -49,6 +52,8 @@ public class Player : MonoBehaviour
             ToolEquipable toolEquipable = (ToolEquipable)equippedItem;
             toolEquipable.Fire();
         }
+
+        
     }
 
     private void Update()
@@ -63,6 +68,19 @@ public class Player : MonoBehaviour
                 animator.SetTrigger("Swing");
             }
         }
+
+        if (Input.GetMouseButtonDown(0) && equippedItem != null)
+        {
+            if (equippedItem is PistolEquipable)
+            {
+                equippedItem.Fire();
+            }
+        }
+
+        // if (Input.GetMouseButtonDown(0) && eqippedItem != null)
+        // {
+        //     
+        // }
     }
 
 
@@ -119,11 +137,22 @@ public class Player : MonoBehaviour
         {
             var playerItem = Instantiate(playerDisplay, transform);
             equippedItem = playerItem.GetComponent<Equipable>();
+            equippedItem.OnEquip();
+            animator.SetBool("holdingPistol", false);
+            pistolRig.weight = 0;
             if (equippedItem is ToolEquipable)
             {
                 ToolEquipable toolEquipable = (ToolEquipable)equippedItem;
                 toolEquipable.ToolDetection = toolDetection;
                 toolEquipable.transform.SetParent(toolParentTransform, false);
+            }
+            if (equippedItem is PistolEquipable)
+            {
+                PistolEquipable pistolEquippable = (PistolEquipable)equippedItem;
+                pistolEquippable.PlayerTransform = transform;
+                equippedItem.transform.SetParent(toolParentTransform, false);
+                animator.SetBool("holdingPistol", true);
+                pistolRig.weight = 1;
             }
         }
     }

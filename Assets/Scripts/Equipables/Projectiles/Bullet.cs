@@ -21,6 +21,7 @@ public class Bullet : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.name);
         Destroy(gameObject);
         // if (other.TryGetComponent(out IHealth))
         // {
