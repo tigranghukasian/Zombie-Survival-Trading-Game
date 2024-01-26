@@ -16,10 +16,28 @@ public class EnemyAttackState : EnemyState
             Debug.Log("DAMAGE PLAYER");
             //enemy.PlayerInSight
         }
+        if (triggerType == Enemy.AnimationTriggerType.EnemyAttackFinished)
+        {
+            enemyStateMachine.ChangeState(enemy.ChaseState);
+        }
+    }
+
+    public override void FrameUpdate()
+    {
+        base.FrameUpdate();
+        var playerInSight = enemy.PlayerInSight;
+        if (playerInSight != null)
+        {
+            enemy.transform.LookAt(new Vector3(playerInSight.transform.position.x, enemy.transform.position.y,
+                playerInSight.transform.position.z));
+        }
+       
     }
     public override void EnterState()
     {
         base.EnterState();
-        enemy.PlayAttackAnimation();
+        enemy.Agent.SetDestination(enemy.transform.position);
+        enemy.Animator.SetBool("isRunning", false);
+        enemy.Animator.SetTrigger("attack");
     }
 }

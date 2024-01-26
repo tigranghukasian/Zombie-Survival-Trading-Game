@@ -13,6 +13,7 @@ public class EnemyChaseState : EnemyState
     {
         base.EnterState();
         enemy.Agent.SetDestination(enemy.transform.position);
+        enemy.Animator.SetBool("isRunning", true);
     }
 
     public override void FrameUpdate()

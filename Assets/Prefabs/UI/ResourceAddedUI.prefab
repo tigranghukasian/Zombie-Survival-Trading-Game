@@ -216,7 +216,7 @@ MonoBehaviour:
   amountText: {fileID: 6314544812451911281}
   timeUntilFade: 0.5
   fadeTime: 0.5
-  floatSpeed: 8
+  floatSpeed: 20
 --- !u!1 &6314544813332226971
 GameObject:
   m_ObjectHideFlags: 0

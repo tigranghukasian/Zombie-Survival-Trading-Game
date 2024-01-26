@@ -11,6 +11,7 @@ public class Enemy : Damageable
 
     public enum AnimationTriggerType
     {
+        EnemyAttackFinished,
         EnemyAttacked
     }
     
@@ -25,6 +26,7 @@ public class Enemy : Damageable
     [SerializeField] private float sightRange;
     [SerializeField] private float attackRange;
     [SerializeField] private LayerMask playerMask;
+    [field: SerializeField] public Animator Animator { get; set; }
 
     private Collider[] hitColliders = new Collider[10];
 
@@ -99,7 +101,7 @@ public class Enemy : Damageable
          Destroy(gameObject);
      }
 
-     private void AnimationTriggerEvent(AnimationTriggerType triggerType)
+     public void AnimationTriggerEvent(AnimationTriggerType triggerType)
      {
          StateMachine.CurrentEnemyState.AnimationTriggerEvent(triggerType);
      }
