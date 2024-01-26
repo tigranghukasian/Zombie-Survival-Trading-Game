@@ -4,51 +4,28 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class ResourceObject : MonoBehaviour, IDamageable, IDestructible
+public class ResourceObject : Damageable
 {
-    [SerializeField]
-    private float health;
 
     [SerializeField] private Item resourceItem;
     [SerializeField] private int amountToGive;
-    
-    public event Action<IDamageable> OnDestroyed;
-    public event Action<float, float> OnHealthChanged;
-    
-    [SerializeField] private Transform healthBarTransform;
-    private float fullHealth;
-    public Transform HealthbarTransform
-    {
-        get => healthBarTransform;
-    }
 
-    public float Health
-    {
-        get => health;
-        set => health = value;
-    }
-    private void Awake()
-    {
-        fullHealth = health;
-    }
-    public void TakeDamage(float amount, Player Owner)
-    {
-        Health -= amount;
-        GameUIManager.Instance.ShowHealthbar(this);
-        OnHealthChanged?.Invoke(Health, fullHealth);
+    private Player Damager;
 
-        if (Health <= 0)
-        {
-            Owner.InventoryHolder.Inventory.AddItem(resourceItem,amountToGive );
-            GameUIManager.Instance.AddResourceAddedUI(resourceItem, amountToGive);
-            DestroyObject();
-            return;
-        }
+
+    public override void TakeDamage(float amount, Player _damager)
+    {
+        base.TakeDamage(amount, _damager);
+        Damager = _damager;
         TriggerDamageEffect();
     }
     
     private void TriggerDamageEffect()
     {
+        if (IsDead)
+        {
+            return;
+        }
         float duration = 0.3f;
         float bobbingAmount = 0.2f;
 
@@ -57,10 +34,12 @@ public class ResourceObject : MonoBehaviour, IDamageable, IDestructible
     }
     
 
-    public void DestroyObject()
+    public override void Kill()
     {
+        base.Kill();
+        Damager.InventoryHolder.Inventory.AddItem(resourceItem, amountToGive);
+        GameUIManager.Instance.AddResourceAddedUI(resourceItem, amountToGive);
         DOTween.Kill(this);
-        OnDestroyed?.Invoke(this);
         Destroy(gameObject);
     }
 }

@@ -24,9 +24,9 @@ public class Bullet : MonoBehaviour
     {
         Instantiate(bulletImpactPrefab, other.ClosestPoint(transform.position), Quaternion.identity);
         Destroy(gameObject);
-        // if (other.TryGetComponent(out IHealth))
-        // {
-        //     
-        // }
+        if (other.TryGetComponent(out Enemy enemy))
+        {
+            enemy.TakeDamage(10, null);
+        }
     }
 }
