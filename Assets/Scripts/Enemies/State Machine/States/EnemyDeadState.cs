@@ -17,6 +17,7 @@ public class EnemyDeadState : EnemyState
         enemy.RagdollEnabler.EnableRagdoll();
         enemy.Agent.enabled = false;
         enemy.EnemySoundPlayer.PlayRandomTypeSoundOneShot(EnemySoundPlayer.SoundType.Death);
+        enemy.EnemySoundPlayer.StopPlayingContinuousSounds();
     }
 
     public override void FrameUpdate()

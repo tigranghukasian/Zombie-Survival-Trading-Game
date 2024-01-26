@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyAnimationEventChecker : MonoBehaviour
 {
     [SerializeField] private Enemy enemy;
-    private void AnimationTriggerEvent(Enemy.AnimationTriggerType triggerType)
+    public void AnimationTriggerEvent(Enemy.AnimationTriggerType triggerType)
     {
         enemy.AnimationTriggerEvent(triggerType);
     }

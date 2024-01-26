@@ -18,7 +18,7 @@ public class EnemyChaseState : EnemyState
         base.EnterState();
         enemy.Agent.SetDestination(enemy.transform.position);
         enemy.Animator.SetBool("isRunning", true);
-        enemy.EnemySoundPlayer.StartPlayingContinuousRandomSounds(EnemySoundPlayer.SoundType.Chase, 1f, 5f);
+        enemy.EnemySoundPlayer.StartPlayingContinuousRandomSounds(EnemySoundPlayer.SoundType.Chase, 3f, 7f);
     }
 
     public override void FrameUpdate()

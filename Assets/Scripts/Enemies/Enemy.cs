@@ -12,11 +12,13 @@ public class Enemy : Damageable, IDamager
     public enum AnimationTriggerType
     {
         EnemyAttackFinished,
-        EnemyAttacked
+        EnemyAttacked,
+        EnemyBirthFinished
     }
     
     #endregion
     public EnemyStateMachine StateMachine { get; set; }
+    public EnemyBirthState BirthState { get; set; }
     public EnemyIdleState IdleState { get; set; }
     public EnemyChaseState ChaseState { get; set; }
     public EnemyAttackState AttackState { get; set; }
@@ -45,6 +47,7 @@ public class Enemy : Damageable, IDamager
         Agent = GetComponent<NavMeshAgent>();
         StateMachine = new EnemyStateMachine();
 
+        BirthState = new EnemyBirthState(this, StateMachine);
         IdleState = new EnemyIdleState(this, StateMachine);
         ChaseState = new EnemyChaseState(this, StateMachine);
         AttackState = new EnemyAttackState(this, StateMachine);
@@ -53,7 +56,7 @@ public class Enemy : Damageable, IDamager
 
     private void Start()
     {
-        StateMachine.Initialize(IdleState);
+        StateMachine.Initialize(BirthState);
     }
 
     private void Update()
@@ -99,6 +102,7 @@ public class Enemy : Damageable, IDamager
     public override void TakeDamage(float amount, IDamager damager)
     {
         base.TakeDamage(amount, damager);
+        EnemySoundPlayer.PlayRandomTypeSoundOneShot(EnemySoundPlayer.SoundType.Damaged);
     }
      public override void Kill()
      {
@@ -113,6 +117,7 @@ public class Enemy : Damageable, IDamager
 
      public void AnimationTriggerEvent(AnimationTriggerType triggerType)
      {
+         Debug.Log(triggerType);
          StateMachine.CurrentEnemyState.AnimationTriggerEvent(triggerType);
      }
 

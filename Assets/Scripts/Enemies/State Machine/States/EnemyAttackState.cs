@@ -42,5 +42,6 @@ public class EnemyAttackState : EnemyState
         enemy.Agent.SetDestination(enemy.transform.position);
         enemy.Animator.SetBool("isRunning", false);
         enemy.Animator.SetTrigger("attack");
+        enemy.EnemySoundPlayer.PlayRandomTypeSoundOneShot(EnemySoundPlayer.SoundType.Attack);
     }
 }

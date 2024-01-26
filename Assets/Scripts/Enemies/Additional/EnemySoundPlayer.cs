@@ -12,25 +12,22 @@ public class EnemySoundPlayer : MonoBehaviour
     private Coroutine soundCoroutine;
     public enum SoundType
     {
+        Birth,
         Idle,
         Chase,
         Attack,
+        Damaged,
         Death,
     }
 
     public void PlayRandomTypeSoundOneShot(SoundType type)
     {
-        if (soundCoroutine != null) 
-        {
-            StopCoroutine(soundCoroutine);
-        }
-
         PlayRandomTypeSound(type);
     }
     
     private void PlayRandomTypeSound(SoundType type)
     {
-        Debug.Log("PLAY SOUND OF TYPE " + type);
+      
         SoundTypeList soundTypeList = soundTypeLists.FirstOrDefault(x => x.SoundType == type);
         if (soundTypeList == null)
         {
