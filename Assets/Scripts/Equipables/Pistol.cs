@@ -9,6 +9,7 @@ public class Pistol : PistolEquipable
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform firePos;
     [SerializeField] private float range = 100f;
+    [SerializeField] private AudioClip fireSound;
 
     private bool canFire;
 
@@ -34,6 +35,7 @@ public class Pistol : PistolEquipable
     {
         if (canFire)
         {
+            SoundManager.Instance.PlayAudioClip(fireSound);
             var bulletObject = Instantiate(bullet,firePos.transform.position, PlayerTransform.rotation);
             canFire = false;
             timePassed = 0;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ToolEquipable : Equipable
 {
     public ToolDetection ToolDetection { get; set; }
+
     public override void OnEquip()
     {
         
@@ -17,6 +18,6 @@ public class ToolEquipable : Equipable
 
     public override void Fire()
     {
-        
+
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GunEquipable : Equipable
 {
+    [SerializeField] private AudioClip gunshotSound;
     public override void OnEquip()
     {
         
@@ -21,6 +22,6 @@ public class GunEquipable : Equipable
 
     public override void Fire()
     {
-        
+        SoundManager.Instance.PlayAudioClip(gunshotSound);
     }
 }

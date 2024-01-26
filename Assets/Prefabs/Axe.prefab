@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireRate: 1
   damageValue: 5
+  hitSound: {fileID: 8300000, guid: 996e21c68442afa4f9f61c0ce0e8f0a2, type: 3}
+  missSound: {fileID: 8300000, guid: ebe13485361d83b439f6b168c2ba589d, type: 3}
 --- !u!1001 &983689366785032321
 PrefabInstance:
   m_ObjectHideFlags: 0

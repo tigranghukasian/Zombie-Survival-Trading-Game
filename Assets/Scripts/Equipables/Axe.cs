@@ -5,6 +5,8 @@ using UnityEngine;
 public class Axe : ToolEquipable
 {
     [SerializeField] private float damageValue;
+    [SerializeField] private AudioClip hitSound;
+    [SerializeField] private AudioClip missSound;
 
     public override void Use()
     {
@@ -13,14 +15,23 @@ public class Axe : ToolEquipable
     
     public override void Fire()
     {
-        //Debug.Log("FIRE AXE");
+        bool hasHit = false;
         for (int i = 0; i < ToolDetection.DamageablesInRange.Count; i++)
         {
             var damageable = ToolDetection.DamageablesInRange[i];
             if (damageable is TreeObject)
             {
+                hasHit = true;
                 damageable.TakeDamage(damageValue);
             }
+        }
+        if (hasHit)
+        {
+            SoundManager.Instance.PlayAudioClip(hitSound);
+        }
+        else
+        {
+            SoundManager.Instance.PlayAudioClip(missSound);
         }
     }
 
