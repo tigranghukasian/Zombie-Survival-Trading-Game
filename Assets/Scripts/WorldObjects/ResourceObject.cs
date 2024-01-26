@@ -10,15 +10,16 @@ public class ResourceObject : Damageable
     [SerializeField] private Item resourceItem;
     [SerializeField] private int amountToGive;
 
-    private Player Damager;
+    private Player Player;
 
 
-    public override void TakeDamage(float amount, Player _damager)
+    public override void TakeDamage(float amount, IDamager damager)
     {
-        base.TakeDamage(amount, _damager);
-        Damager = _damager;
+        base.TakeDamage(amount, damager);
         TriggerDamageEffect();
+        Player = (Player)damager;
     }
+    
     
     private void TriggerDamageEffect()
     {
@@ -37,7 +38,7 @@ public class ResourceObject : Damageable
     public override void Kill()
     {
         base.Kill();
-        Damager.InventoryHolder.Inventory.AddItem(resourceItem, amountToGive);
+        Player.InventoryHolder.Inventory.AddItem(resourceItem, amountToGive);
         GameUIManager.Instance.AddResourceAddedUI(resourceItem, amountToGive);
         DOTween.Kill(this);
         Destroy(gameObject);

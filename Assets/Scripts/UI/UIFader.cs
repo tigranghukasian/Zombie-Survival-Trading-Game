@@ -15,7 +15,14 @@ public class UIFader : MonoBehaviour
 
     public void FadeOut(float duration, Action onFadeCompleted)
     {
+        StopAllCoroutines();
         StartCoroutine(Fade(1, 0, duration, onFadeCompleted));
+    }
+
+    public void FadeIn(float duration, Action onFadeCompleted)
+    {
+        StopAllCoroutines();
+        StartCoroutine(Fade(0, 1, duration, onFadeCompleted));
     }
 
     IEnumerator Fade(float alphaStart, float alphaEnd, float duration, Action onFadeCompleted)

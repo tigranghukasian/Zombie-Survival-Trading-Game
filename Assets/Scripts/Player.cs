@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable, IDamager
 {
     [SerializeField] private InventoryHolder inventoryHolder;
     [SerializeField] private InventoryHolder equipmentHolder;
@@ -17,7 +17,14 @@ public class Player : MonoBehaviour
     [SerializeField] private Rig pistolRig;
     private bool playingAnimation;
     private Equipable equippedItem;
-
+    
+    [field:SerializeField] public float MaxHealth { get; set; }
+    [field:SerializeField] public float Health { get; set; }
+    public event Action<IDamageable> OnDestroyed;
+    public event Action<float, float> OnHealthChanged;
+    public bool IsDead { get; set; }
+    public Transform HealthbarTransform { get; set; }
+    
     public InventoryHolder InventoryHolder => inventoryHolder;
 
     private void Awake()
@@ -35,6 +42,23 @@ public class Player : MonoBehaviour
         }
         SelectEquipmentSlot(0);
         
+    }
+    
+    public void TakeDamage(float amount, IDamager damager)
+    {
+        Health -= amount;
+        OnHealthChanged?.Invoke(Health, MaxHealth);
+        if (Health <= 0)
+        {
+            Health = 0;
+            Kill();
+        }
+    }
+
+ 
+    public void Kill()
+    {
+        //TODO: LOSE WHEN PLAYER DIES
     }
 
     private void SlotUpdated(InventorySlot slot)

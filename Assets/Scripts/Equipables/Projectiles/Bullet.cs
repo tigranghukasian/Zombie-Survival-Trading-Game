@@ -9,6 +9,13 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float lifeTime;
     [SerializeField] private GameObject bulletImpactPrefab;
 
+    private float damage;
+
+    public void Init(float _damage)
+    {
+        damage = _damage;
+    }
+
     private float timeAlive = 0;
     private void Update()
     {

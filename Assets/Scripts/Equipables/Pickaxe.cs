@@ -20,7 +20,7 @@ public class Pickaxe : ToolEquipable
         for (int i = 0; i < ToolDetection.DamageablesInRange.Count; i++)
         {
             var damageable = ToolDetection.DamageablesInRange[i];
-            if (damageable is OreObject)
+            if (damageable is OreObject  or Enemy)
             {
                 hasHit = true;
                 damageable.TakeDamage(damageValue, Owner);

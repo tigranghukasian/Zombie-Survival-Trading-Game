@@ -13,8 +13,11 @@ public class EnemyAttackState : EnemyState
     {
         if (triggerType == Enemy.AnimationTriggerType.EnemyAttacked && enemy.IsInAttackRange)
         {
-            Debug.Log("DAMAGE PLAYER");
-            //enemy.PlayerInSight
+            if (enemy.PlayerInSight != null)
+            {
+                enemy.PlayerInSight.TakeDamage(enemy.AttackDamage, enemy);
+            }
+            
         }
         if (triggerType == Enemy.AnimationTriggerType.EnemyAttackFinished)
         {

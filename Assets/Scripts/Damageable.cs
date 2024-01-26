@@ -7,7 +7,7 @@ public abstract class Damageable : MonoBehaviour, IDamageable
 {
     public bool IsDead { get; set; }
     [field: SerializeField] public Transform HealthbarTransform { get; set; }
-    [field: SerializeField] public float Health { get; set; } = 100;
+    public float Health { get; set; } = 100;
     [field: SerializeField] public float MaxHealth { get; set; } = 100;
 
     private void Awake()
@@ -18,7 +18,7 @@ public abstract class Damageable : MonoBehaviour, IDamageable
         }
         Health = MaxHealth;
     }
-    public virtual void TakeDamage(float amount, Player Damager)
+    public virtual void TakeDamage(float amount, IDamager Damager)
     {
         Health -= amount;
         GameUIManager.Instance.ShowHealthbar(this);

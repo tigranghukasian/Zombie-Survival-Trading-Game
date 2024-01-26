@@ -92,8 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <HealthbarTransform>k__BackingField: {fileID: 8918350194018714222}
-  <Health>k__BackingField: 20
-  <MaxHealth>k__BackingField: 20
+  <Health>k__BackingField: 80
+  <MaxHealth>k__BackingField: 80
   resourceItem: {fileID: 11400000, guid: 3680c2b39119e5b4891ac68b631cdfd6, type: 2}
   amountToGive: 20
 --- !u!1001 &7994155076750467807

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class Enemy : Damageable
+public class Enemy : Damageable, IDamager
 {
     #region Animation Triggers
 
@@ -21,6 +21,7 @@ public class Enemy : Damageable
     public EnemyChaseState ChaseState { get; set; }
     public EnemyAttackState AttackState { get; set; }
 
+    [field: SerializeField] public float AttackDamage { get; set; } = 15f;
     [field: SerializeField] public float IdleMovementRange { get; set; } = 5f;
     [field: SerializeField] public float IdleMovementSpeed { get; set; } = 1f;
     [SerializeField] private float sightRange;
@@ -90,11 +91,11 @@ public class Enemy : Damageable
     {
         StateMachine.CurrentEnemyState.PhysicsUpdate();
     }
-
-    public override void TakeDamage(float amount, Player player)
-     {
-         base.TakeDamage(amount, player);
-     }
+    
+    public override void TakeDamage(float amount, IDamager damager)
+    {
+        base.TakeDamage(amount, damager);
+    }
      public override void Kill()
      {
          base.Kill();

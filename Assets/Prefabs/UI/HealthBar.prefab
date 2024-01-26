@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6689676908736504301}
   - component: {fileID: 3669680049998224317}
   - component: {fileID: 8648607477167535028}
+  - component: {fileID: 2398074975767725260}
+  - component: {fileID: 2133196191358261890}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -100,6 +102,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b968ce6f3fa28924aa876e0e4efa68fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!225 &2398074975767725260
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4765349184296267840}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &2133196191358261890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4765349184296267840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe2faa325568544d9b84d855dcad345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6430929622108224858

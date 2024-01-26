@@ -10,7 +10,7 @@ public interface IDamageable
     
     bool IsDead { get; set; }
     Transform HealthbarTransform { get; set; }
-    void TakeDamage(float amount, Player player);
+    void TakeDamage(float amount, IDamager damager);
     event Action<IDamageable> OnDestroyed;
     event Action<float, float> OnHealthChanged;
     void Kill();

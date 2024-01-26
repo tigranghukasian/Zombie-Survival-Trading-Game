@@ -19,7 +19,7 @@ public class Axe : ToolEquipable
         for (int i = 0; i < ToolDetection.DamageablesInRange.Count; i++)
         {
             var damageable = ToolDetection.DamageablesInRange[i];
-            if (damageable is TreeObject)
+            if (damageable is TreeObject or Enemy)
             {
                 hasHit = true;
                 damageable.TakeDamage(damageValue, Owner);

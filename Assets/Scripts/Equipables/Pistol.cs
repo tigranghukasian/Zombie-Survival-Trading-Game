@@ -11,6 +11,7 @@ public class Pistol : PistolEquipable
     [SerializeField] private MuzzleFlash muzzleFlash;
     [SerializeField] private Transform firePos;
     [SerializeField] private float range = 100f;
+    [SerializeField] private float damage = 10f;
     [SerializeField] private AudioClip fireSound;
 
     private bool canFire;
@@ -39,7 +40,8 @@ public class Pistol : PistolEquipable
         if (canFire)
         {
             SoundManager.Instance.PlayAudioClip(fireSound);
-            var bulletObject = Instantiate(bullet,firePos.transform.position, PlayerTransform.rotation);
+            var bulletObject = Instantiate(bullet,firePos.transform.position, PlayerTransform.rotation).GetComponent<Bullet>();
+            bulletObject.Init(damage);
             var trailObject = Instantiate(trailPrefab,firePos.position, PlayerTransform.rotation);
             BulletTrail trail = trailObject.GetComponent<BulletTrail>();
             trail.bulletTransform = bulletObject.transform;
