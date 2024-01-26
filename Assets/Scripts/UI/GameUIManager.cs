@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class HealthbarManager : Singleton<HealthbarManager>
+public class GameUIManager : Singleton<GameUIManager>
 {
     [SerializeField] private GameObject healthBarPrefab;
+    [SerializeField] private GameObject resourceAddedUIPrefab;
+    [SerializeField] private Transform resourceAddedUIParent;
 
     private Camera mainCamera;
     private Dictionary<IDamageable, Healthbar> healthbars = new Dictionary<IDamageable, Healthbar>();
@@ -14,6 +16,13 @@ public class HealthbarManager : Singleton<HealthbarManager>
     {
         base.Awake();
         mainCamera = Camera.main;
+    }
+
+    public void AddResourceAddedUI(Item item, int amount)
+    {
+        ResourceAddedUI raui = Instantiate(resourceAddedUIPrefab, resourceAddedUIParent).GetComponent<ResourceAddedUI>();
+        raui.transform.position = resourceAddedUIParent.transform.position;
+        raui.Init(item.sprite, amount);
     }
 
     public void ShowHealthbar(IDamageable damageable)
@@ -27,6 +36,7 @@ public class HealthbarManager : Singleton<HealthbarManager>
             healthbars.Add(damageable, healthbar);
         }
     }
+
 
     private void RemoveHealthBarFromDictionary(IDamageable damageable)
     {

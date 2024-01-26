@@ -12,10 +12,12 @@ public abstract class Equipable : MonoBehaviour, IEquipable
         get => fireRate;
         set => fireRate = value;
     }
+    public Player Owner { get; set; }
     
     protected float timePassed;
     public abstract void OnEquip();
     public abstract void Use();
 
     public abstract void Fire();
+    
 }

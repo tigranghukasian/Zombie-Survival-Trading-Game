@@ -38,34 +38,30 @@ public abstract class Inventory
         {
             return;
         }
-        bool added = false;
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].Id == item.id && slots[i].Amount < item.stackSize)
+            {
+                
+                int spaceLeft = item.stackSize - slots[i].Amount;
+                if (spaceLeft >= amount)
+                {
+                    slots[i].UpdateSlot(item.id, slots[i].Amount + amount);
+                    return;
+                }
+                slots[i].UpdateSlot(item.id, slots[i].Amount + spaceLeft);
+                amount -= spaceLeft;
+            }
+        }
         while (amount > 0)
         {
-            for (int i = 0; i < slots.Length; i++)
+            InventorySlot emptySlot = SetFirstEmptySlot(item, Mathf.Min(amount, item.stackSize));
+            if (emptySlot == null)
             {
-                if (slots[i].Id == item.id && slots[i].Amount < item.stackSize)
-                {
-                    int spaceInSlot = item.stackSize - slots[i].Amount;
-                    int amountToAdd = Mathf.Min(spaceInSlot, amount);
-
-                    slots[i].AddAmount(amountToAdd);
-                    amount -= amountToAdd;
-                    added = true;
-                    if (amount <= 0)
-                    {
-                        break;
-                    }
-                }
+                // TODO: Handle the case where the inventory is full.
+                break;
             }
-            if (!added)
-            {
-                if (SetFirstEmptySlot(item, Mathf.Min(item.stackSize, amount)) == null)
-                {
-                    // TODO : INVENTORY FULL
-                    break;
-                }
-                amount -= Mathf.Min(item.stackSize, amount);
-            }
+            amount -= emptySlot.Amount;
         }
       
     }

@@ -22,7 +22,7 @@ public class Axe : ToolEquipable
             if (damageable is TreeObject)
             {
                 hasHit = true;
-                damageable.TakeDamage(damageValue);
+                damageable.TakeDamage(damageValue, Owner);
             }
         }
         if (hasHit)

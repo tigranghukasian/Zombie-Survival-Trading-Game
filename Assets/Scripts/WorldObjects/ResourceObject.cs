@@ -31,14 +31,16 @@ public class ResourceObject : MonoBehaviour, IDamageable, IDestructible
     {
         fullHealth = health;
     }
-    public void TakeDamage(float amount)
+    public void TakeDamage(float amount, Player Owner)
     {
         Health -= amount;
-        HealthbarManager.Instance.ShowHealthbar(this);
+        GameUIManager.Instance.ShowHealthbar(this);
         OnHealthChanged?.Invoke(Health, fullHealth);
 
         if (Health <= 0)
         {
+            Owner.InventoryHolder.Inventory.AddItem(resourceItem,amountToGive );
+            GameUIManager.Instance.AddResourceAddedUI(resourceItem, amountToGive);
             DestroyObject();
             return;
         }

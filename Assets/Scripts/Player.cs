@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     private bool playingAnimation;
     private Equipable equippedItem;
 
+    public InventoryHolder InventoryHolder => inventoryHolder;
+
     private void Awake()
     {
         Application.targetFrameRate = -1;
@@ -138,6 +140,7 @@ public class Player : MonoBehaviour
             var playerItem = Instantiate(playerDisplay, transform);
             equippedItem = playerItem.GetComponent<Equipable>();
             equippedItem.OnEquip();
+            equippedItem.Owner = this;
             animator.SetBool("holdingPistol", false);
             pistolRig.weight = 0;
             if (equippedItem is ToolEquipable)

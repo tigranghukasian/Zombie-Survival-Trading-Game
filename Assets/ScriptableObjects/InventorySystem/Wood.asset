@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42526e5b7a1717e45b94785f6a6da893, type: 3}
-  m_Name: Berries
+  m_Name: Wood
   m_EditorClassIdentifier: 
-  id: 1
-  name: Berries
+  id: 5
+  name: Wood
   playerDisplay: {fileID: 0}
-  sprite: {fileID: 21300000, guid: 710cb31b40e23e24b83abd9d38c228cf, type: 3}
+  sprite: {fileID: 21300000, guid: 940d1fee443ae4349939d4e0504a7b6f, type: 3}
   description: 
   stackSize: 30
   type: 5

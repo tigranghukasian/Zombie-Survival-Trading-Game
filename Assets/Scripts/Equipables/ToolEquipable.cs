@@ -6,6 +6,7 @@ public class ToolEquipable : Equipable
 {
     public ToolDetection ToolDetection { get; set; }
 
+
     public override void OnEquip()
     {
         

@@ -23,7 +23,7 @@ public class Pickaxe : ToolEquipable
             if (damageable is OreObject)
             {
                 hasHit = true;
-                damageable.TakeDamage(damageValue);
+                damageable.TakeDamage(damageValue, Owner);
             }
         }
 

@@ -92,6 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 40
+  resourceItem: {fileID: 11400000, guid: 3680c2b39119e5b4891ac68b631cdfd6, type: 2}
+  amountToGive: 20
   healthBarTransform: {fileID: 8918350194018714222}
 --- !u!1001 &7994155076750467807
 PrefabInstance:

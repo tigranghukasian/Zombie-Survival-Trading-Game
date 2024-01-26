@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(UIFader))]
 public class Healthbar : MonoBehaviour
 {
 
@@ -13,15 +14,19 @@ public class Healthbar : MonoBehaviour
     private Slider slider;
     public Transform FollowTransform { get; set; }
     private Camera mainCamera;
+
+    //private bool alwaysActive;
     
     private float inactivityTimer = 0f;
     private float inactivityThreshold = 3f;
     private IDamageable damageable;
+    private UIFader uiFader;
 
     private void Awake()
     {
         mainCamera = Camera.main;
         slider = GetComponent<Slider>();
+        uiFader = GetComponent<UIFader>();
     }
     
     public void Setup(IDamageable _damageable, Action _removeFromDictionaryAction)
@@ -62,7 +67,7 @@ public class Healthbar : MonoBehaviour
         inactivityTimer += Time.deltaTime;
         if (inactivityTimer >= inactivityThreshold)
         {
-            DestroyHealthbar();
+            uiFader.FadeOut(1,DestroyHealthbar);
         }
     }
 }

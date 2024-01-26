@@ -8,7 +8,7 @@ public class DefaultItem : Item
 {
     private void Awake()
     {
-        stackSize = 32;
+        stackSize = 30;
         type = ItemType.Default;
     }
 }
