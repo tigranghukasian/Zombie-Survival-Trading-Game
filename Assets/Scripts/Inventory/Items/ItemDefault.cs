@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Default Item", menuName = "Inventory System/Items/DefaultItem")]
-public class DefaultItem : Item
+public class ItemDefault : Item
 {
     private void Awake()
     {

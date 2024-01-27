@@ -13,7 +13,9 @@ public class Enemy : Damageable, IDamager
     {
         EnemyAttackFinished,
         EnemyAttacked,
-        EnemyBirthFinished
+        EnemyBirthFinished,
+        EnemyHeadbuttFinished,
+        EnemyHeadbutt
     }
     
     #endregion
@@ -23,8 +25,10 @@ public class Enemy : Damageable, IDamager
     public EnemyChaseState ChaseState { get; set; }
     public EnemyAttackState AttackState { get; set; }
     public EnemyDeadState DeadState { get; set; }
+    public EnemyBlockedState BlockedState { get; set; }
 
     [field: SerializeField] public float AttackDamage { get; set; } = 15f;
+    [field: SerializeField] public float HeadButtDamage { get; set; } = 15f;
     [field: SerializeField] public float IdleMovementRange { get; set; } = 5f;
     [field: SerializeField] public float IdleMovementSpeed { get; set; } = 1f;
     [SerializeField] private float sightRange;
@@ -52,6 +56,7 @@ public class Enemy : Damageable, IDamager
         ChaseState = new EnemyChaseState(this, StateMachine);
         AttackState = new EnemyAttackState(this, StateMachine);
         DeadState = new EnemyDeadState(this, StateMachine);
+        BlockedState = new EnemyBlockedState(this, StateMachine);
     }
 
     private void Start()
@@ -117,9 +122,35 @@ public class Enemy : Damageable, IDamager
 
      public void AnimationTriggerEvent(AnimationTriggerType triggerType)
      {
-         Debug.Log(triggerType);
          StateMachine.CurrentEnemyState.AnimationTriggerEvent(triggerType);
      }
 
+     void OnDrawGizmos()
+     {
+         if (Application.isPlaying)
+         {
+             // Set the text position slightly above the GameObject
+             Vector3 textPosition = transform.position + Vector3.up * 2;
+
+             // Convert the world position to a screen position
+             Vector3 screenPosition = Camera.current.WorldToScreenPoint(textPosition);
+
+             // Use GUI to draw the label
+             // Note: GUI calls need to be inside OnGUI method, so we use Handles
+             UnityEditor.Handles.BeginGUI();
+
+             var stateName = StateMachine.CurrentEnemyState.ToString();
+
+             // Pass stateName to GUIContent to calculate the correct size
+             var textSize = GUI.skin.label.CalcSize(new GUIContent(stateName));
+
+             var rect = new Rect(screenPosition.x - textSize.x / 2, 
+                 Screen.height - screenPosition.y - textSize.y / 2, 
+                 textSize.x, textSize.y);
+             GUI.Label(rect, stateName);
+
+             UnityEditor.Handles.EndGUI();
+         }
+     }
 
 }

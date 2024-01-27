@@ -11,6 +11,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GameObject inventorySlotUiPrefab;
     [SerializeField] private GameObject selectionUI;
     
+    
 
     public void Init(Inventory _inventory)
     {

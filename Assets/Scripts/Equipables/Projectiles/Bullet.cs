@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] private GameObject bulletImpactPrefab;
 
     private float damage;
+    private bool hasHit;
+    private Collider collliderHit;
 
     public void Init(float _damage)
     {
@@ -17,17 +19,30 @@ public class Bullet : MonoBehaviour
     }
 
     private float timeAlive = 0;
-    private void Update()
+    private void FixedUpdate()
     {
-        timeAlive += Time.deltaTime;
+        if (hasHit)
+        {
+            Hit(collliderHit);
+        }
+        timeAlive += Time.fixedDeltaTime;
+        float step = speed * Time.fixedDeltaTime;
         if (timeAlive >= lifeTime)
         {
             Destroy(gameObject);
         }
-        transform.position += transform.forward * Time.deltaTime * speed;
+        Vector3 newPosition = transform.position + transform.forward * step;
+        
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, step))
+        {
+            hasHit = true;
+            newPosition = hit.point;
+            collliderHit = hit.collider;
+        }
+        transform.position = newPosition;
     }
 
-    public void OnTriggerEnter(Collider other)
+    private void Hit(Collider other)
     {
         Instantiate(bulletImpactPrefab, other.ClosestPoint(transform.position), Quaternion.identity);
         Destroy(gameObject);
@@ -35,5 +50,9 @@ public class Bullet : MonoBehaviour
         {
             enemy.TakeDamage(10, null);
         }
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        //Hit(other);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Tool Item", menuName = "Inventory System/Items/ToolItem")]
-public class ToolItem : Item
+public class ItemTool : ItemEquipable
 {
     private void Awake()
     {

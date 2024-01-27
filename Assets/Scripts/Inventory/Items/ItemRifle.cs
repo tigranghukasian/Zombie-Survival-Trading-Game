@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Rifle Item", menuName = "Inventory System/Items/RifleItem")]
-public class RifleItem : Item
+public class ItemRifle : ItemEquipable
 {
     private void Awake()
     {
-        stackSize = 1;
+        stackSize = 3;
         type = ItemType.Rifle;
     }
 }

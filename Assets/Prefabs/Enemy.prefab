@@ -153,6 +153,7 @@ MonoBehaviour:
   <HealthbarTransform>k__BackingField: {fileID: 577693031946734391}
   <MaxHealth>k__BackingField: 100
   <AttackDamage>k__BackingField: 15
+  <HeadButtDamage>k__BackingField: 15
   <IdleMovementRange>k__BackingField: 5
   <IdleMovementSpeed>k__BackingField: 1
   sightRange: 3

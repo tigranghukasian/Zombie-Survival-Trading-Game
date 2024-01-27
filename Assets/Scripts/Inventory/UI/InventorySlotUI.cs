@@ -17,11 +17,13 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject ghostObject;
     private InventorySlot slot;
     private Inventory inventory;
+    private ItemDatabase database;
 
     public void Init(InventorySlot _slot, Inventory _inventory)
     {
         slot = _slot;
         inventory = _inventory;
+        database = inventory.ItemDatabase;
 
         SetupSlotAllowedItemsBg();
     }
@@ -33,7 +35,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
         {
             return;
         }
-        if (slot.AllowedItems[0] == ItemType.Pistol)
+        if (slot.AllowedItems[0] == ItemType.Gun)
         {
             slotTypeBg.sprite = pistolSlotSprite;
             slotTypeBg.color = slotTypeBgColor;
@@ -57,19 +59,23 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (InventorySelectionManager.SelectedSlotReference == null && slot.Id != -1)
+        if(!InventorySelectionManager.IsSlotSelected) 
         {
-            InventorySelectionManager.SelectedSlotReference = slot;
-            InventorySelectionManager.SelectedSlotData = new InventorySlot(slot.Id, slot.Amount);
-            InventorySelectionManager.GhostItem = Instantiate(ghostObject, Input.mousePosition,Quaternion.identity, transform.parent.parent);
-            InventorySelectionManager.GhostItem.GetComponent<GhostInventoryItemUI>().SetSprite(inventory.ItemDatabase.GetItem(slot.Id).sprite, slot.Amount);
-            slot.UpdateSlot(-1, 0);
-
-            //CREATE GAMEOBJECT FOR GHOST
+            if (slot.Id != -1)
+            {
+                var slotItem = database.GetItem(slot.Id);
+                if (slotItem is ItemStructure)
+                {
+                    ItemStructure structureItem = (ItemStructure)slotItem;
+                    StructurePlacementManager.Instance.SetCurrentActiveStructurePrefab(structureItem.structurePrefab);
+                }
+                SelectSlot();
+                CreateGhostItem();
+                slot.UpdateSlot(-1, 0);
+            }
+            
         }
-        else if(InventorySelectionManager.SelectedSlotReference != null)
-        {
-            ItemDatabase database = inventory.ItemDatabase;
+        else {
             var selectedSlotReference = InventorySelectionManager.SelectedSlotReference;
             var selectedSlotData = InventorySelectionManager.SelectedSlotData;
             var newSlot = slot;
@@ -84,9 +90,45 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
             {
                 InventorySelectionManager.SelectedSlotReference.UpdateSlot(InventorySelectionManager.SelectedSlotData.Id,InventorySelectionManager.SelectedSlotData.Amount);
             }
-            InventorySelectionManager.SelectedSlotData = null;
-            InventorySelectionManager.SelectedSlotReference = null;
-            Destroy(InventorySelectionManager.GhostItem);
+
+            DeselectSlot();
         }
+    }
+
+    private void SelectSlot()
+    {
+        InventorySelectionManager.SelectedSlotReference = slot;
+        InventorySelectionManager.SelectedSlotData = new InventorySelectionManager.SlotData(slot.Id, slot.Amount);
+        InventorySelectionManager.IsSlotSelected = true;
+        InventorySelectionManager.OnSelectedSlotDataChanged += OnSelectedSlotDataChanged;
+    }
+
+    private void DeselectSlot()
+    {
+        InventorySelectionManager.SelectedSlotData = new InventorySelectionManager.SlotData { Id = -1, Amount = 0 };
+        InventorySelectionManager.SelectedSlotReference = null;
+        InventorySelectionManager.IsSlotSelected = false;
+        InventorySelectionManager.OnSelectedSlotDataChanged -= OnSelectedSlotDataChanged;
+        StructurePlacementManager.Instance.SetCurrentActiveStructurePrefab(null);
+        DestroyGhostItem();
+    }
+
+    private void OnSelectedSlotDataChanged(InventorySelectionManager.SlotData slotData)
+    {
+        if (slotData.Amount <= 0)
+        {
+            DeselectSlot();
+        }
+    }
+
+    private void CreateGhostItem()
+    {
+        InventorySelectionManager.GhostItem = Instantiate(ghostObject, Input.mousePosition,Quaternion.identity, transform.parent.parent);
+        InventorySelectionManager.GhostItem.GetComponent<GhostInventoryItemUI>().SetSprite(inventory.ItemDatabase.GetItem(slot.Id).sprite, slot.Amount);
+    }
+
+    private void DestroyGhostItem()
+    {
+        Destroy(InventorySelectionManager.GhostItem);
     }
 }

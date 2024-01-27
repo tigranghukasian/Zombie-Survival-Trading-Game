@@ -11,17 +11,17 @@ public class EquipmentInventory : Inventory
         slots[0] = new InventorySlot(inventorySlotUpdatedCallback);
         slots[0].AllowedItems = new ItemType[]
         {
-            ItemType.Pistol
+            ItemType.Gun
         };
         slots[1] = new InventorySlot(inventorySlotUpdatedCallback);
         slots[1].AllowedItems = new ItemType[]
         {
-            ItemType.Rifle
+            ItemType.Tool
         };
         slots[2] = new InventorySlot(inventorySlotUpdatedCallback);
         slots[2].AllowedItems = new ItemType[]
         {
-            ItemType.Tool
+            ItemType.Rifle
         };
     }
 }

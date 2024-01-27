@@ -4,9 +4,9 @@ using UnityEngine;
 
 public enum ItemType
 {
-    Pistol,
-    Rifle,
+    Gun,
     Tool,
+    Rifle,
     Consumable,
     Structure,
     Default
@@ -15,7 +15,6 @@ public abstract class Item : ScriptableObject
 {
     public int id;
     public string name;
-    public GameObject playerDisplay;
     public Sprite sprite;
     public string description;
     public int stackSize = 1;

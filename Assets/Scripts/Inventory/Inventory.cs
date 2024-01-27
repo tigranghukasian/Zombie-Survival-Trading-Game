@@ -86,10 +86,10 @@ public abstract class Inventory
         slot1.UpdateSlot(slot2.Id, slot2.Amount);
         slot2.UpdateSlot(tempSlot.Id, tempSlot.Amount);
     }
-    public static void SwapItemsFromTempData(InventorySlot slot1, InventorySlot emptySlot, InventorySlot tempData)
+    public static void SwapItemsFromTempData(InventorySlot newSlot, InventorySlot oldSlot, InventorySelectionManager.SlotData tempData)
     {
-        InventorySlot tempSlot = new InventorySlot(slot1.Id, slot1.Amount);
-        emptySlot.UpdateSlot(tempSlot.Id, tempSlot.Amount);
-        slot1.UpdateSlot(tempData.Id, tempData.Amount);
+        InventorySlot tempSlot = new InventorySlot(newSlot.Id, newSlot.Amount);
+        oldSlot.UpdateSlot(tempSlot.Id, tempSlot.Amount);
+        newSlot.UpdateSlot(tempData.Id, tempData.Amount);
     }
 }

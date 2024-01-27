@@ -10,7 +10,6 @@ public class EnemyBirthState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
-        Debug.Log("ENTER BIRTH STATE");
         //enemy.EnemySoundPlayer.PlayRandomTypeSoundOneShot(EnemySoundPlayer.SoundType.Birth);
     }
 

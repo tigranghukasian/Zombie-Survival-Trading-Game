@@ -85,7 +85,7 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     private void Update()
     {
         CheckKeysForSelectingEquipment();
-        if (!GameUIManager.Instance.IsMouseOverUI())
+        if (!GameUIManager.Instance.IsMouseOverUI() && !InventorySelectionManager.IsSlotSelected)
         {
             if (Input.GetMouseButton(0) && equippedItem != null)
             {
@@ -160,9 +160,9 @@ public class Player : MonoBehaviour, IDamageable, IDamager
             return;
         }
 
-        Item slotItem = equipmentHolder.Inventory.ItemDatabase.GetItem(slot.Id);
-       
-        var playerDisplay = slotItem.playerDisplay;
+        ItemEquipable itemEquipable = (ItemEquipable)equipmentHolder.Inventory.ItemDatabase.GetItem(slot.Id);
+
+        var playerDisplay = itemEquipable.playerDisplay;
         if (playerDisplay != null)
         {
             var playerItem = Instantiate(playerDisplay, transform);
@@ -192,7 +192,7 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     {
         if (_other.TryGetComponent(out DroppedItem droppedItem))
         {
-            inventoryHolder.Inventory.AddItem(droppedItem.Item, 1);
+            inventoryHolder.Inventory.AddItem(droppedItem.Item, droppedItem.Amount);
             Destroy(droppedItem.gameObject);
         }
     }

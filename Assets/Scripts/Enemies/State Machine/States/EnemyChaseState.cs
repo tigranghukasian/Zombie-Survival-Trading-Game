@@ -32,7 +32,15 @@ public class EnemyChaseState : EnemyState
         {
             enemyStateMachine.ChangeState(enemy.AttackState);
         }
+        
+        UnityEngine.AI.NavMeshPath path = new UnityEngine.AI.NavMeshPath();
+        enemy.Agent.CalculatePath(enemy.PlayerInSight.transform.position, path);
+        if (path.status != UnityEngine.AI.NavMeshPathStatus.PathComplete) {
+            Debug.Log("PATH BLOCKED");
+            enemyStateMachine.ChangeState(enemy.BlockedState);
+        }
 
+        CheckForExit();
         if (Vector3.Distance(enemy.PlayerInSight.transform.position, enemy.transform.position) > distanceToCountExit)
         {
             exitTimer += Time.deltaTime;
@@ -48,5 +56,10 @@ public class EnemyChaseState : EnemyState
             exitTimer = 0;
         }
 
+    }
+
+    private void CheckForExit()
+    {
+        
     }
 }
