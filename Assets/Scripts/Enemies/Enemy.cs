@@ -25,7 +25,7 @@ public class Enemy : Damageable, IDamager
     public EnemyChaseState ChaseState { get; set; }
     public EnemyAttackState AttackState { get; set; }
     public EnemyDeadState DeadState { get; set; }
-    public EnemyBlockedState BlockedState { get; set; }
+    public EnemyDestroyState DestroyState { get; set; }
 
     [field: SerializeField] public float AttackDamage { get; set; } = 15f;
     [field: SerializeField] public float HeadButtDamage { get; set; } = 15f;
@@ -37,6 +37,7 @@ public class Enemy : Damageable, IDamager
     [field: SerializeField] public RagdollEnabler RagdollEnabler { get; set; }
     [field: SerializeField] public Animator Animator { get; set; }
     [field: SerializeField] public EnemySoundPlayer EnemySoundPlayer { get; set; }
+    [field: SerializeField] public LayerMask DestructibleLayer { get; set; }
 
     private Collider[] hitColliders = new Collider[10];
 
@@ -56,12 +57,27 @@ public class Enemy : Damageable, IDamager
         ChaseState = new EnemyChaseState(this, StateMachine);
         AttackState = new EnemyAttackState(this, StateMachine);
         DeadState = new EnemyDeadState(this, StateMachine);
-        BlockedState = new EnemyBlockedState(this, StateMachine);
+        DestroyState = new EnemyDestroyState(this, StateMachine);
     }
 
     private void Start()
     {
+        AreaBaker.Instance.OnNavmeshUpdate += OnNavmeshUpdate;
         StateMachine.Initialize(BirthState);
+    }
+    
+
+    private void OnNavmeshUpdate(Bounds bounds)
+    {
+        //Debug.Log("On Navmesh Update" + bounds + ":" + transform.position);
+        if (bounds.Contains(transform.position) && !IsDead)
+        {
+            Agent.enabled = true;
+        }
+        else
+        {
+            Agent.enabled = false;
+        }
     }
 
     private void Update()
@@ -98,10 +114,11 @@ public class Enemy : Damageable, IDamager
         }
         return false;
     }
-
+    
     private void FixedUpdate()
     {
         StateMachine.CurrentEnemyState.PhysicsUpdate();
+
     }
     
     public override void TakeDamage(float amount, IDamager damager)
@@ -112,11 +129,14 @@ public class Enemy : Damageable, IDamager
      public override void Kill()
      {
          base.Kill();
+         Agent.enabled = false;
          StateMachine.ChangeState(DeadState);
      }
 
      public void Destroy()
      {
+         
+         AreaBaker.Instance.OnNavmeshUpdate -= OnNavmeshUpdate;
          Destroy(gameObject);
      }
 
@@ -127,30 +147,32 @@ public class Enemy : Damageable, IDamager
 
      void OnDrawGizmos()
      {
+         #if UNITY_EDITOR 
          if (Application.isPlaying)
          {
              // Set the text position slightly above the GameObject
              Vector3 textPosition = transform.position + Vector3.up * 2;
-
+             
              // Convert the world position to a screen position
              Vector3 screenPosition = Camera.current.WorldToScreenPoint(textPosition);
-
+             
              // Use GUI to draw the label
              // Note: GUI calls need to be inside OnGUI method, so we use Handles
              UnityEditor.Handles.BeginGUI();
-
+             
              var stateName = StateMachine.CurrentEnemyState.ToString();
-
+             
              // Pass stateName to GUIContent to calculate the correct size
              var textSize = GUI.skin.label.CalcSize(new GUIContent(stateName));
-
+             
              var rect = new Rect(screenPosition.x - textSize.x / 2, 
                  Screen.height - screenPosition.y - textSize.y / 2, 
                  textSize.x, textSize.y);
              GUI.Label(rect, stateName);
-
+             
              UnityEditor.Handles.EndGUI();
          }
+         #endif
      }
 
 }

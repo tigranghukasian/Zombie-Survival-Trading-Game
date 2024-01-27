@@ -14,6 +14,9 @@ public class EnemyIdleState : EnemyState
 
     public override void EnterState()
     {
+        enemy.Animator.Play("Idle", 0);
+        enemy.Animator.SetBool("isRunning", false);
+        enemy.Agent.enabled = false;
         enemy.EnemySoundPlayer.StartPlayingContinuousRandomSounds(EnemySoundPlayer.SoundType.Idle, 1f, 5f);
     }
 
@@ -24,23 +27,18 @@ public class EnemyIdleState : EnemyState
         {
             enemy.StateMachine.ChangeState(enemy.ChaseState);
         }
-        if (!walkPointSet)
-        {
-            SetEnemyWalkPoint();
-        }
-        Vector3 distanceToRandomPoint = enemy.transform.position - walkPoint;
-        if (distanceToRandomPoint.sqrMagnitude < 1)
-        {
-            walkPointSet = false;
-        }
     }
-
-    private void SetEnemyWalkPoint()
-    {
-        walkPoint = GetRandomWalkPoint();
-        enemy.Agent.SetDestination(walkPoint);
-        walkPointSet = true;
-    }
+    //
+    // private void SetEnemyWalkPoint()
+    // {
+    //     walkPoint = GetRandomWalkPoint();
+    //     if (enemy.Agent.enabled)
+    //     {
+    //         enemy.Agent.SetDestination(walkPoint);
+    //     }
+    //   
+    //     walkPointSet = true;
+    // }
 
     private Vector3 GetRandomWalkPoint()
     {

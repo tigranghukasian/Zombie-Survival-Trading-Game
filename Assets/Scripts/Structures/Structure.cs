@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Structure : Damageable
 {
-    // Start is called before the first frame update
-    void Start()
+    
+    public override void Kill()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.Kill();
+        Destroy(gameObject);
     }
 }

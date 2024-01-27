@@ -157,13 +157,16 @@ MonoBehaviour:
   <IdleMovementRange>k__BackingField: 5
   <IdleMovementSpeed>k__BackingField: 1
   sightRange: 5
-  attackRange: 1
+  attackRange: 0.8
   playerMask:
     serializedVersion: 2
     m_Bits: 8
   <RagdollEnabler>k__BackingField: {fileID: 2167604995850570216}
   <Animator>k__BackingField: {fileID: 6444357950884123828}
   <EnemySoundPlayer>k__BackingField: {fileID: 3482806708698881671}
+  <DestructibleLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &2167604995850570216
 MonoBehaviour:
   m_ObjectHideFlags: 0

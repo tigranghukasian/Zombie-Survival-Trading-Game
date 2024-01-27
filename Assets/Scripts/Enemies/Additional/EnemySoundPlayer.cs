@@ -31,7 +31,7 @@ public class EnemySoundPlayer : MonoBehaviour
         SoundTypeList soundTypeList = soundTypeLists.FirstOrDefault(x => x.SoundType == type);
         if (soundTypeList == null || soundTypeList.AudioClips.Count == 0)
         {
-            Debug.Log("Can't find sounds for this type");
+            //Debug.Log("Can't find sounds for this type");
             return;
         }
         List<AudioClip> clips = soundTypeList.AudioClips;

@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using NavMeshSurface = Unity.AI.Navigation.NavMeshSurface;
 
-public class AreaBaker : MonoBehaviour
+public class AreaBaker : Singleton<AreaBaker>
 {
     [SerializeField] private NavMeshSurface surface;
 
@@ -21,6 +23,10 @@ public class AreaBaker : MonoBehaviour
     private NavMeshData navmeshData;
     private List<NavMeshBuildSource> sources = new List<NavMeshBuildSource>();
     private List<NavMeshBuildMarkup> markups = new List<NavMeshBuildMarkup>();
+
+    private Bounds navmeshBounds;
+
+    public Action<Bounds> OnNavmeshUpdate { get; set; }
 
 
     private void Start()
@@ -39,8 +45,10 @@ public class AreaBaker : MonoBehaviour
         {
             if (Vector3.Distance(worldAnchor, playerTransform.position) > movementThreshold)
             {
+                navmeshBounds = new Bounds(playerTransform.position, navmeshSize);
                 BuildNavmesh(true);
                 worldAnchor = playerTransform.position;
+                OnNavmeshUpdate?.Invoke(navmeshBounds);
             }
 
             yield return wait;
@@ -86,18 +94,19 @@ public class AreaBaker : MonoBehaviour
                 surface.defaultArea, markups, sources);
         }
 
-        sources.RemoveAll(source =>
-            source.component != null && source.component.gameObject.GetComponent<NavMeshAgent>() != null);
+        // sources.RemoveAll(source =>
+        //     source.component != null && source.component.gameObject.GetComponent<NavMeshAgent>() != null);
+
 
         if (async)
         {
             NavMeshBuilder.UpdateNavMeshDataAsync(navmeshData, surface.GetBuildSettings(), sources,
-                new Bounds(playerTransform.position, navmeshSize));
+                navmeshBounds);
         }
         else
         {
             NavMeshBuilder.UpdateNavMeshData(navmeshData, surface.GetBuildSettings(), sources,
-                new Bounds(playerTransform.position, navmeshSize));
+                navmeshBounds);
         }
     }
 }

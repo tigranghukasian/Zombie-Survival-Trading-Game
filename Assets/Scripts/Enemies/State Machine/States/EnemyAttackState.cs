@@ -13,9 +13,20 @@ public class EnemyAttackState : EnemyState
     {
         if (triggerType == Enemy.AnimationTriggerType.EnemyAttacked && enemy.IsInAttackRange)
         {
-            if (enemy.PlayerInSight != null)
+            RaycastHit hit;
+            var enemyPos = enemy.transform.position + Vector3.up;
+            var playerPos = enemy.PlayerInSight.transform.position;
+            Debug.DrawRay(enemyPos, enemy.transform.forward * 1f, Color.red, 100f );
+            if (Physics.Raycast(enemyPos, enemy.transform.forward * 1f, out hit))
             {
-                enemy.PlayerInSight.TakeDamage(enemy.AttackDamage, enemy);
+                if (hit.transform.TryGetComponent(out IDamageable damageable))
+                {
+                    if (damageable is not ResourceObject)
+                    {
+                        damageable.TakeDamage(enemy.AttackDamage, enemy);
+                    }
+                }
+                
             }
             
         }
