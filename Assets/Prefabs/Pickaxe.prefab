@@ -24,6 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6786434168194617951}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,7 +32,6 @@ Transform:
   m_Children:
   - {fileID: 4004079145751740545}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8151830762114174858
 MonoBehaviour:
@@ -47,13 +47,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireRate: 1
   damageValue: 15
-  hitSound: {fileID: 8300000, guid: 31a6e6fecb1023f4d9bc4d4a23f341fa, type: 3}
+  hitSoundStone: {fileID: 8300000, guid: 31a6e6fecb1023f4d9bc4d4a23f341fa, type: 3}
+  hitSoundFlesh: {fileID: 8300000, guid: 69d703f2060c58948b93c2da8534bf16, type: 3}
   missSound: {fileID: 8300000, guid: ebe13485361d83b439f6b168c2ba589d, type: 3}
 --- !u!1001 &5665274104990170214
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 4893496327954146321}
     m_Modifications:
     - target: {fileID: 8234146512507840093, guid: eb3fa0c9027882b4084517c1a3342a1f, type: 3}
@@ -117,6 +119,9 @@ PrefabInstance:
       value: -261.966
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb3fa0c9027882b4084517c1a3342a1f, type: 3}
 --- !u!4 &4004079145751740545 stripped
 Transform:

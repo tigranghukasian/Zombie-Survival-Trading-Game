@@ -21,6 +21,7 @@ public class Healthbar : MonoBehaviour
     private float inactivityThreshold = 3f;
     private IDamageable damageable;
     private UIFader uiFader;
+    private bool inactive = false;
 
     private void Awake()
     {
@@ -49,6 +50,8 @@ public class Healthbar : MonoBehaviour
     private void ResetInactivityTimer()
     {
         inactivityTimer = 0f;
+        inactive = false;
+        uiFader.FadeIn(0, null);
     }
     public void DestroyHealthbar()
     {
@@ -60,14 +63,23 @@ public class Healthbar : MonoBehaviour
         removeFromDictionaryAction?.Invoke();
         Destroy(gameObject);
     }
+
+    private void OnFadeOutCompleted()
+    {
+        if (inactive)
+        {
+            DestroyHealthbar();
+        }
+    }
     private void Update()
     {
         transform.position = mainCamera.WorldToScreenPoint(FollowTransform.position);
         
         inactivityTimer += Time.deltaTime;
-        if (inactivityTimer >= inactivityThreshold)
+        if (inactivityTimer >= inactivityThreshold && !inactive)
         {
-            uiFader.FadeOut(1,DestroyHealthbar);
+            inactive = true;
+            uiFader.FadeOut(1,OnFadeOutCompleted);
         }
     }
 }

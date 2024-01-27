@@ -85,23 +85,27 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     private void Update()
     {
         CheckKeysForSelectingEquipment();
-        if (Input.GetMouseButton(0) && equippedItem != null)
+        if (!GameUIManager.Instance.IsMouseOverUI())
         {
-            equippedItem.Use();
-            if (equippedItem is ToolEquipable && !playingAnimation)
+            if (Input.GetMouseButton(0) && equippedItem != null)
             {
-                playingAnimation = true;
-                animator.SetTrigger("Swing");
+                equippedItem.Use();
+                if (equippedItem is ToolEquipable && !playingAnimation)
+                {
+                    playingAnimation = true;
+                    animator.SetTrigger("Swing");
+                }
             }
-        }
 
-        if (Input.GetMouseButtonDown(0) && equippedItem != null)
-        {
-            if (equippedItem is PistolEquipable)
+            if (Input.GetMouseButtonDown(0) && equippedItem != null)
             {
-                equippedItem.Fire();
+                if (equippedItem is PistolEquipable)
+                {
+                    equippedItem.Fire();
+                }
             }
         }
+        
 
         // if (Input.GetMouseButtonDown(0) && eqippedItem != null)
         // {

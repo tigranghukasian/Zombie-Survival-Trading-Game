@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameUIManager : Singleton<GameUIManager>
 {
@@ -18,6 +19,10 @@ public class GameUIManager : Singleton<GameUIManager>
         mainCamera = Camera.main;
     }
 
+    public bool IsMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
+    }
     public void AddResourceAddedUI(Item item, int amount)
     {
         ResourceAddedUI raui = Instantiate(resourceAddedUIPrefab, resourceAddedUIParent).GetComponent<ResourceAddedUI>();

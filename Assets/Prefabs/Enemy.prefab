@@ -197,7 +197,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 150
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 7
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -233,7 +233,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -248,7 +248,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.027777778
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -287,26 +287,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1200455611}
   soundTypeLists:
-  - <SoundType>k__BackingField: 3
+  - <SoundType>k__BackingField: 5
     <AudioClips>k__BackingField:
     - {fileID: 8300000, guid: 90713b3ec9d22b54b821919af23b8ed9, type: 3}
     - {fileID: 8300000, guid: 829fcb7bffe67064db7e8c583d05261d, type: 3}
     - {fileID: 8300000, guid: e6bce2c00a5d39343bb7dcb2ff758bd0, type: 3}
-  - <SoundType>k__BackingField: 2
+  - <SoundType>k__BackingField: 3
     <AudioClips>k__BackingField:
     - {fileID: 8300000, guid: 5e29fcfee61ccec4aa9808a3b2ebb958, type: 3}
-  - <SoundType>k__BackingField: 0
+  - <SoundType>k__BackingField: 1
     <AudioClips>k__BackingField:
     - {fileID: 8300000, guid: 8b98c1747acecc8449893a5eb95a3057, type: 3}
     - {fileID: 8300000, guid: fb966d0237fde624c9d6cd92425a54c0, type: 3}
-  - <SoundType>k__BackingField: 1
+  - <SoundType>k__BackingField: 2
     <AudioClips>k__BackingField:
     - {fileID: 8300000, guid: 9c4da96f5ab8c7d4a897c912e67129a5, type: 3}
     - {fileID: 8300000, guid: c6865375a62435f42b7935c4c9df3935, type: 3}
   - <SoundType>k__BackingField: 0
     <AudioClips>k__BackingField:
     - {fileID: 8300000, guid: 9e01a3145c133154ca16efbb200b1edb, type: 3}
-  - <SoundType>k__BackingField: 3
+  - <SoundType>k__BackingField: 4
     <AudioClips>k__BackingField:
     - {fileID: 8300000, guid: eb6bbb4cd70a14047ba04ddb85e3247a, type: 3}
     - {fileID: 8300000, guid: ee89c75712b203f42a5076df88a50a54, type: 3}
@@ -669,7 +669,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.18657771, y: 0.3675477, z: -0.06600423}
+  m_ConnectedAnchor: {x: 0.18657771, y: 0.36754578, z: -0.06600422}
   serializedVersion: 2
   m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -1074,7 +1074,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: 0.00000038849882, y: 0.27504185, z: 0.00000084787354}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1173,7 +1173,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: -0.0000002625468, y: 0.27504277, z: -0.00000040382403}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -1486,7 +1486,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.101212986, y: -0.053164154, z: 0.0016307894}
+  m_ConnectedAnchor: {x: 0.101212986, y: -0.05316606, z: 0.0016307894}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1585,7 +1585,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.0000001059351, y: 0.6122361, z: -0.01677532}
+  m_ConnectedAnchor: {x: -0.00000010593885, y: 0.6122342, z: -0.016775306}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1686,7 +1686,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.18657836, y: 0.36755145, z: -0.06600421}
+  m_ConnectedAnchor: {x: -0.18657836, y: 0.36754954, z: -0.066004194}
   serializedVersion: 2
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_TwistLimitSpring:
