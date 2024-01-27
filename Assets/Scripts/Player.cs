@@ -192,6 +192,7 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     {
         if (_other.TryGetComponent(out DroppedItem droppedItem))
         {
+            Debug.Log(droppedItem.Item);
             inventoryHolder.Inventory.AddItem(droppedItem.Item, droppedItem.Amount);
             Destroy(droppedItem.gameObject);
         }

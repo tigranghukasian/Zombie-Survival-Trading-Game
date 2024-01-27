@@ -64,10 +64,10 @@ GameObject:
   - component: {fileID: 577693030201478518}
   - component: {fileID: 577693030201478520}
   - component: {fileID: 577693030201478519}
-  - component: {fileID: 577693030201478521}
+  - component: {fileID: 4389613277979528}
   - component: {fileID: 2167604995850570216}
+  - component: {fileID: 3482806708698881671}
   - component: {fileID: 1200455611}
-  - component: {fileID: 1200455612}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -138,7 +138,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &577693030201478521
+--- !u!114 &4389613277979528
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,14 +156,14 @@ MonoBehaviour:
   <HeadButtDamage>k__BackingField: 15
   <IdleMovementRange>k__BackingField: 5
   <IdleMovementSpeed>k__BackingField: 1
-  sightRange: 3
+  sightRange: 5
   attackRange: 1
   playerMask:
     serializedVersion: 2
     m_Bits: 8
   <RagdollEnabler>k__BackingField: {fileID: 2167604995850570216}
   <Animator>k__BackingField: {fileID: 6444357950884123828}
-  <EnemySoundPlayer>k__BackingField: {fileID: 1200455612}
+  <EnemySoundPlayer>k__BackingField: {fileID: 3482806708698881671}
 --- !u!114 &2167604995850570216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +178,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6444357950884123828}
   ragdollRoot: {fileID: 4890499565458435674}
+--- !u!114 &3482806708698881671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577693030201478516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41df8e36a12a58e45841d60a968209cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 1200455611}
+  soundTypeLists:
+  - <SoundType>k__BackingField: 0
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 9e01a3145c133154ca16efbb200b1edb, type: 3}
+  - <SoundType>k__BackingField: 1
+    <AudioClips>k__BackingField: []
+  - <SoundType>k__BackingField: 2
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 9c4da96f5ab8c7d4a897c912e67129a5, type: 3}
+    - {fileID: 8300000, guid: c6865375a62435f42b7935c4c9df3935, type: 3}
+  - <SoundType>k__BackingField: 3
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 5e29fcfee61ccec4aa9808a3b2ebb958, type: 3}
+  - <SoundType>k__BackingField: 4
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: eb6bbb4cd70a14047ba04ddb85e3247a, type: 3}
+    - {fileID: 8300000, guid: ee89c75712b203f42a5076df88a50a54, type: 3}
+  - <SoundType>k__BackingField: 5
+    <AudioClips>k__BackingField:
+    - {fileID: 8300000, guid: 90713b3ec9d22b54b821919af23b8ed9, type: 3}
 --- !u!82 &1200455611
 AudioSource:
   m_ObjectHideFlags: 0
@@ -274,43 +307,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1200455612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 577693030201478516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41df8e36a12a58e45841d60a968209cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 1200455611}
-  soundTypeLists:
-  - <SoundType>k__BackingField: 5
-    <AudioClips>k__BackingField:
-    - {fileID: 8300000, guid: 90713b3ec9d22b54b821919af23b8ed9, type: 3}
-    - {fileID: 8300000, guid: 829fcb7bffe67064db7e8c583d05261d, type: 3}
-    - {fileID: 8300000, guid: e6bce2c00a5d39343bb7dcb2ff758bd0, type: 3}
-  - <SoundType>k__BackingField: 3
-    <AudioClips>k__BackingField:
-    - {fileID: 8300000, guid: 5e29fcfee61ccec4aa9808a3b2ebb958, type: 3}
-  - <SoundType>k__BackingField: 1
-    <AudioClips>k__BackingField:
-    - {fileID: 8300000, guid: 8b98c1747acecc8449893a5eb95a3057, type: 3}
-    - {fileID: 8300000, guid: fb966d0237fde624c9d6cd92425a54c0, type: 3}
-  - <SoundType>k__BackingField: 2
-    <AudioClips>k__BackingField:
-    - {fileID: 8300000, guid: 9c4da96f5ab8c7d4a897c912e67129a5, type: 3}
-    - {fileID: 8300000, guid: c6865375a62435f42b7935c4c9df3935, type: 3}
-  - <SoundType>k__BackingField: 0
-    <AudioClips>k__BackingField:
-    - {fileID: 8300000, guid: 9e01a3145c133154ca16efbb200b1edb, type: 3}
-  - <SoundType>k__BackingField: 4
-    <AudioClips>k__BackingField:
-    - {fileID: 8300000, guid: eb6bbb4cd70a14047ba04ddb85e3247a, type: 3}
-    - {fileID: 8300000, guid: ee89c75712b203f42a5076df88a50a54, type: 3}
 --- !u!1 &577693031946734388
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,7 +545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c9f47b771adf34281f7481a3a80c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 577693030201478521}
+  enemy: {fileID: 4389613277979528}
 --- !u!1 &504790585258145583 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1082271958561512970, guid: b5dbba4e600b338429bccc329f0548e7, type: 3}

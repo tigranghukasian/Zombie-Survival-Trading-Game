@@ -62,10 +62,14 @@ public class EnemyBlockedState : EnemyState
             Debug.DrawRay(enemyPos, playerPos- enemyPos, Color.red, 100f );
             if (Physics.Raycast(enemyPos, playerPos- enemyPos, out hit))
             {
-                Debug.Log(hit.collider.name);
+                
                 if (hit.transform.TryGetComponent(out IDamageable damageable))
                 {
-                    damageable.TakeDamage(enemy.HeadButtDamage, enemy);
+                    if (damageable is not ResourceObject)
+                    {
+                        damageable.TakeDamage(enemy.HeadButtDamage, enemy);
+                    }
+                    
                 }
             }
         }

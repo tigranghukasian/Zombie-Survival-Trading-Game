@@ -10,6 +10,7 @@ public class ItemDatabase : ScriptableObject, ISerializationCallbackReceiver
 
     public void OnAfterDeserialize()
     {
+        ItemDictionary.Clear();
         for (int i = 0; i < items.Length; i++)
         {
             items[i].id = i;
