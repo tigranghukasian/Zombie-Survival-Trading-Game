@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -28.4651, y: -18.7135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2342275007542975695
 CanvasRenderer:
@@ -92,11 +92,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
+  m_fontSize: 17.65
   m_fontSizeBase: 24
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 5
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -168,8 +168,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 8, y: 0}
-  m_SizeDelta: {x: 56.9393, y: 56.9393}
+  m_AnchoredPosition: {x: 3.569, y: 0}
+  m_SizeDelta: {x: 40.3752, y: 40.3752}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3647659067561649615
 CanvasRenderer:
@@ -243,8 +243,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -130.8333, y: -1.3401484}
-  m_SizeDelta: {x: 51.9141, y: 40.1077}
+  m_AnchoredPosition: {x: -88.6, y: -0.13376}
+  m_SizeDelta: {x: 35.5918, y: 27.4971}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1580023315053734109
 CanvasRenderer:
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_text: $100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 33554cd661c1c714fa914c11e32794d3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -301,12 +301,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.25
+  m_fontSize: 15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 5
+  m_fontSizeMax: 15
   m_fontStyle: 0
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
@@ -377,8 +377,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -88.06004, y: 0}
-  m_SizeDelta: {x: 87.7857, y: 40.1077}
+  m_AnchoredPosition: {x: -47.9058, y: -0.13375}
+  m_SizeDelta: {x: 76.6398, y: 36.778}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2799809284724139168
 CanvasRenderer:
@@ -408,10 +408,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wooden Barricade
+  m_text: Pistol
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 33554cd661c1c714fa914c11e32794d3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -435,12 +435,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 36
+  m_fontSize: 15
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 5
+  m_fontSizeMax: 15
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -511,8 +511,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -229.8, y: 0}
-  m_SizeDelta: {x: 30.7321, y: 28.8348}
+  m_AnchoredPosition: {x: -129.7, y: -0.13377}
+  m_SizeDelta: {x: 21.0387, y: 19.7398}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9167608221640059803
 CanvasRenderer:
@@ -545,7 +545,7 @@ MonoBehaviour:
   m_text: x1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 33554cd661c1c714fa914c11e32794d3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -569,12 +569,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.8
+  m_fontSize: 15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 5
+  m_fontSizeMax: 15
   m_fontStyle: 0
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
@@ -637,7 +637,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7182930575423234489}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -652,7 +652,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 214.08685, y: -44.87055}
-  m_SizeDelta: {x: 408.1737, y: 69.7411}
+  m_SizeDelta: {x: 408.1737, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &964050973152292476
 CanvasRenderer:
@@ -745,8 +745,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -51.9258, y: 0}
-  m_SizeDelta: {x: 86.61, y: 56.939}
+  m_AnchoredPosition: {x: -34, y: 0.69869}
+  m_SizeDelta: {x: 58.4754, y: 38.4428}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4575676244966708221
 CanvasRenderer:
