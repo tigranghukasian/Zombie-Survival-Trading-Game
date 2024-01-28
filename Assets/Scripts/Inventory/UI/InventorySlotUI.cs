@@ -91,7 +91,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
                 InventorySelectionManager.SelectedSlotReference.UpdateSlot(InventorySelectionManager.SelectedSlotData.Id,InventorySelectionManager.SelectedSlotData.Amount);
             }
 
-            DeselectSlot();
+            StartCoroutine(DelayedDeselect());
         }
     }
 
@@ -117,8 +117,14 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
     {
         if (slotData.Amount <= 0)
         {
-            DeselectSlot();
+            StartCoroutine(DelayedDeselect());
         }
+    }
+    
+    private IEnumerator DelayedDeselect()
+    {
+        yield return new WaitForSeconds(0.01f);
+        DeselectSlot();
     }
 
     private void CreateGhostItem()

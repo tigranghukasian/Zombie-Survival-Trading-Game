@@ -26,7 +26,8 @@ public class EnemyChaseState : EnemyState
     {
         base.EnterState();
         enemy.Agent.enabled = true;
-        enemy.Agent.SetDestination(enemy.transform.position);
+        enemy.Agent.SetDestination(enemy.PlayerInSight.transform.position);
+        enemy.Agent.speed = enemy.ChaseSpeed;
         enemy.Animator.SetBool("isRunning", true);
         enemy.EnemySoundPlayer.StartPlayingContinuousRandomSounds(EnemySoundPlayer.SoundType.Chase, 3f, 7f);
     }
@@ -42,13 +43,6 @@ public class EnemyChaseState : EnemyState
         {
             enemyStateMachine.ChangeState(enemy.AttackState);
         }
-        
-        // UnityEngine.AI.NavMeshPath path = new UnityEngine.AI.NavMeshPath();
-        // enemy.Agent.CalculatePath(enemy.PlayerInSight.transform.position, path);
-        // if (path.status != UnityEngine.AI.NavMeshPathStatus.PathComplete) {
-        //     Debug.Log("PATH BLOCKED");
-        //     enemyStateMachine.ChangeState(enemy.DestroyState);
-        // }
 
         CheckForExit();
         if (Vector3.Distance(enemy.PlayerInSight.transform.position, enemy.transform.position) > distanceToCountExit)
@@ -73,7 +67,7 @@ public class EnemyChaseState : EnemyState
             if (destructibleCheckTimer >= 1f / DestructibleObjectCheckRate)
             {
                 destructibleCheckTimer = 0f;
-                CheckForDestructibleObjects(); 
+                //CheckForDestructibleObjects(); 
             }
         }
 

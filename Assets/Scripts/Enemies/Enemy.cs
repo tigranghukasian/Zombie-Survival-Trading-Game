@@ -30,7 +30,8 @@ public class Enemy : Damageable, IDamager
     [field: SerializeField] public float AttackDamage { get; set; } = 15f;
     [field: SerializeField] public float HeadButtDamage { get; set; } = 15f;
     [field: SerializeField] public float IdleMovementRange { get; set; } = 5f;
-    [field: SerializeField] public float IdleMovementSpeed { get; set; } = 1f;
+    [field: SerializeField] public float ChaseSpeed { get; set; } = 3f;
+    [field: SerializeField] public float AttackChargeSpeed { get; set; } = 4.5f;
     [SerializeField] private float sightRange;
     [SerializeField] private float attackRange;
     [SerializeField] private LayerMask playerMask;

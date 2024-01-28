@@ -40,18 +40,24 @@ public class EnemyAttackState : EnemyState
     {
         base.FrameUpdate();
         var playerInSight = enemy.PlayerInSight;
-        if (playerInSight != null)
+        if (playerInSight != null && enemy.Agent.enabled)
         {
+            if (enemy.Agent.enabled)
+            {
+                enemy.Agent.SetDestination(enemy.PlayerInSight.transform.position);
+            }
             enemy.transform.LookAt(new Vector3(playerInSight.transform.position.x, enemy.transform.position.y,
                 playerInSight.transform.position.z));
+           
         }
        
     }
     public override void EnterState()
     {
         base.EnterState();
-        enemy.Agent.SetDestination(enemy.transform.position);
-        enemy.Animator.SetBool("isRunning", false);
+        enemy.Agent.enabled = true;
+        enemy.Agent.speed = enemy.AttackChargeSpeed;
+        enemy.Agent.SetDestination(enemy.PlayerInSight.transform.position);
         enemy.Animator.SetTrigger("attack");
         enemy.EnemySoundPlayer.PlayRandomTypeSoundOneShot(EnemySoundPlayer.SoundType.Attack);
     }

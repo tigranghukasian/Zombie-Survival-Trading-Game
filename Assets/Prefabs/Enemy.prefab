@@ -155,7 +155,8 @@ MonoBehaviour:
   <AttackDamage>k__BackingField: 15
   <HeadButtDamage>k__BackingField: 15
   <IdleMovementRange>k__BackingField: 5
-  <IdleMovementSpeed>k__BackingField: 1
+  <ChaseSpeed>k__BackingField: 2.8
+  <AttackChargeSpeed>k__BackingField: 3.5
   sightRange: 5
   attackRange: 0.8
   playerMask:
@@ -166,7 +167,7 @@ MonoBehaviour:
   <EnemySoundPlayer>k__BackingField: {fileID: 3482806708698881671}
   <DestructibleLayer>k__BackingField:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
 --- !u!114 &2167604995850570216
 MonoBehaviour:
   m_ObjectHideFlags: 0

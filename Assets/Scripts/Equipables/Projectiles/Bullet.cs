@@ -16,17 +16,27 @@ public class Bullet : MonoBehaviour
     public void Init(float _damage)
     {
         damage = _damage;
+        Debug.DrawRay(transform.position, transform.forward * 0.2f, Color.blue, 5f);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position,  0.2f);
+        foreach (Collider hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject != gameObject && hitCollider.TryGetComponent(out Enemy enemy))
+            {
+                Hit(hitCollider);
+            }
+        }
     }
 
     private float timeAlive = 0;
-    private void FixedUpdate()
+    private void Update()
     {
         if (hasHit)
         {
             Hit(collliderHit);
         }
-        timeAlive += Time.fixedDeltaTime;
-        float step = speed * Time.fixedDeltaTime;
+        hasHit = false;
+        timeAlive += Time.deltaTime;
+        float step = speed * Time.deltaTime;
         if (timeAlive >= lifeTime)
         {
             Destroy(gameObject);
@@ -41,6 +51,8 @@ public class Bullet : MonoBehaviour
         }
         transform.position = newPosition;
     }
+    
+    private void CheckIfHit() {}
 
     private void Hit(Collider other)
     {
@@ -48,7 +60,7 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
         if (other.TryGetComponent(out Enemy enemy))
         {
-            enemy.TakeDamage(10, null);
+            enemy.TakeDamage(damage, null);
         }
     }
     public void OnTriggerEnter(Collider other)

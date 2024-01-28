@@ -85,8 +85,10 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     private void Update()
     {
         CheckKeysForSelectingEquipment();
+        
         if (!GameUIManager.Instance.IsMouseOverUI() && !InventorySelectionManager.IsSlotSelected)
         {
+            
             if (Input.GetMouseButton(0) && equippedItem != null)
             {
                 equippedItem.Use();
