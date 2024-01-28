@@ -29,7 +29,6 @@ public class ItemDatabase : ScriptableObject, ISerializationCallbackReceiver
         {
             return item;
         }
-
         return null;
     }
 }

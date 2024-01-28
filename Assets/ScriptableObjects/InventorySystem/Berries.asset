@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   name: Berries
-  playerDisplay: {fileID: 0}
+  price: 5
   sprite: {fileID: 21300000, guid: 710cb31b40e23e24b83abd9d38c228cf, type: 3}
   description: 
   stackSize: 30
-  type: 5
+  type: 3

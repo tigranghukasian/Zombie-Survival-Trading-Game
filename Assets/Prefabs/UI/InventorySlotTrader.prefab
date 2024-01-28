@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 549105890146287415}
   - component: {fileID: 6627913635382998937}
   m_Layer: 5
-  m_Name: InventorySlot
+  m_Name: InventorySlotTrader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -308, y: -224}
-  m_SizeDelta: {x: 32, y: 32}
+  m_SizeDelta: {x: 86.61, y: 86.61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &609002171802303538
 CanvasRenderer:
@@ -267,8 +267,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.6127, y: -9.857299}
-  m_SizeDelta: {x: 23.7193, y: 17.23}
+  m_AnchoredPosition: {x: 22, y: -27.2}
+  m_SizeDelta: {x: 38.0157, y: 27.6151}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4282235469964107424
 CanvasRenderer:
@@ -409,11 +409,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7570335578162687045, guid: f419054d5dfc65549bd40d449f99aa4f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 26
+      value: 75.557
       objectReference: {fileID: 0}
     - target: {fileID: 7570335578162687045, guid: f419054d5dfc65549bd40d449f99aa4f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 26
+      value: 75.5568
       objectReference: {fileID: 0}
     - target: {fileID: 7570335578162687045, guid: f419054d5dfc65549bd40d449f99aa4f, type: 3}
       propertyPath: m_LocalPosition.x

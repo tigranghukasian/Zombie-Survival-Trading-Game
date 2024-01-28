@@ -15,6 +15,7 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     [SerializeField] private PlayerAnimatorEventChecker playerAnimatorEventChecker;
     [SerializeField] private ToolDetection toolDetection;
     [SerializeField] private Rig pistolRig;
+    [SerializeField] private PlayerInteractionDetector interactionDetector;
     private bool playingAnimation;
     private Equipable equippedItem;
     
@@ -22,16 +23,26 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     [field:SerializeField] public float Health { get; set; }
     public event Action<IDamageable> OnDestroyed;
     public event Action<float, float> OnHealthChanged;
+    public event Action<int> OnMoneyIncreased;
+    public event Action<int> OnMoneyDecreased;
+    public event Action<int> OnMoneyChanged;
     public bool IsDead { get; set; }
     public Transform HealthbarTransform { get; set; }
     
+    public Interactable CurrentInteractable { get; set; }
+    
     public InventoryHolder InventoryHolder => inventoryHolder;
+    
+    public int Money { get; set; }
 
     private void Awake()
     {
         Application.targetFrameRate = -1;
         playerAnimatorEventChecker.OnHit += OnAnimationHit;
         pistolRig.weight = 0;
+        interactionDetector.OnInteractableDetected += OnInteractableDetected;
+        interactionDetector.OnInteractableUndetected += OnInteractableUnDetected;
+        Money = 200;
     }
 
     private void Start()
@@ -41,7 +52,26 @@ public class Player : MonoBehaviour, IDamageable, IDamager
             equipmentHolder.Inventory.GetSlot(i).inventorySlotUpdatedCallback += SlotUpdated;
         }
         SelectEquipmentSlot(0);
-        
+
+    }
+
+    public bool HasMoney(int amount)
+    {
+        return Money >= amount;
+    }
+
+    public void DecreaseMoney(int amount)
+    {
+        Money -= amount;
+        OnMoneyChanged?.Invoke(Money);
+        OnMoneyIncreased?.Invoke(amount);
+    }
+
+    public void IncreaseMoney(int amount)
+    {
+        Money += amount;
+        OnMoneyChanged?.Invoke(Money);
+        OnMoneyIncreased?.Invoke(amount);
     }
     
     public void TakeDamage(float amount, IDamager damager)
@@ -107,12 +137,49 @@ public class Player : MonoBehaviour, IDamageable, IDamager
                 }
             }
         }
-        
 
-        // if (Input.GetMouseButtonDown(0) && eqippedItem != null)
-        // {
-        //     
-        // }
+        HandleInteractLogic();
+        
+    }
+
+    private void OnInteractableDetected(Interactable _interactable)
+    {
+        CurrentInteractable = _interactable;
+        GameUIManager.Instance.EnableInteractableIcon(CurrentInteractable.InteractableIconTransform.position);
+    }
+
+    private void OnInteractableUnDetected(Interactable _interactable)
+    {
+        if (_interactable.HasInteracted)
+        {
+            _interactable.UnInteract();
+        }
+        CurrentInteractable = null;
+        GameUIManager.Instance.DisableInteractableIcon();
+    }
+
+    private void HandleInteractLogic()
+    {
+        
+        if (CurrentInteractable != null)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (!CurrentInteractable.HasInteracted)
+                {
+                    CurrentInteractable.Interact();
+                    
+                }
+                else
+                {
+                    CurrentInteractable.UnInteract();
+                }
+            }
+        }
+        else
+        {
+            GameUIManager.Instance.DisableInteractableIcon();
+        }
     }
 
 

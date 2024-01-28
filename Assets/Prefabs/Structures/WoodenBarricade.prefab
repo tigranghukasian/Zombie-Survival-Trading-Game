@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5565046399616365864}
   - component: {fileID: 3291908279465871329}
   m_Layer: 0
-  m_Name: WoodFence
+  m_Name: WoodenBarricade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

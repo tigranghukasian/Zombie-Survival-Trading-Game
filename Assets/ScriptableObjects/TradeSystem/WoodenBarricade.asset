@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42526e5b7a1717e45b94785f6a6da893, type: 3}
-  m_Name: Wood
+  m_Script: {fileID: 11500000, guid: 17c6abc5b0ee06d4fac16ade419e52eb, type: 3}
+  m_Name: WoodenBarricade
   m_EditorClassIdentifier: 
-  id: 5
-  name: Wood
-  price: 5
-  sprite: {fileID: 21300000, guid: 940d1fee443ae4349939d4e0504a7b6f, type: 3}
-  description: 
-  stackSize: 30
-  type: 5
+  item: {fileID: 11400000, guid: 553227d1265db104d90fa658a147f616, type: 2}
+  amountSelling: 5

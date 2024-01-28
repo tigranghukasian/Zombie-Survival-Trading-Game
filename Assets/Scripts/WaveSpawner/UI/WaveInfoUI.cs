@@ -27,6 +27,7 @@ public class WaveInfoUI : MonoBehaviour
          peacefulTimeParent.GetComponent<UIFader>().FadeOut(0);
          waveText.GetComponent<UIFader>().FadeOut(0);
          waveTextCanvasGroup = waveText.GetComponent<CanvasGroup>();
+         waveTextCanvasGroup.alpha = 0;
      }
     
      private void OnDisable()

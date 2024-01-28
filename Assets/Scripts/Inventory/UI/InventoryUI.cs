@@ -53,4 +53,5 @@ public class InventoryUI : MonoBehaviour
             invSlot.UpdateItemUI(inventory.ItemDatabase.GetItem(updatedSlot.Id)?.sprite, updatedSlot.Amount);
         }
     }
+    
 }

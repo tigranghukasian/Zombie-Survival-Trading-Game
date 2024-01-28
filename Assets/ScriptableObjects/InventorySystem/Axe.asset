@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   name: Axe
-  playerDisplay: {fileID: 5344900415149632177, guid: fffd1f4959d410943a44e2b158481777, type: 3}
+  price: 35
   sprite: {fileID: 21300000, guid: 33f591cd1585d6540bccfc51e33d6ddf, type: 3}
   description: 
   stackSize: 1
-  type: 2
+  type: 1
+  playerDisplay: {fileID: 5344900415149632177, guid: fffd1f4959d410943a44e2b158481777, type: 3}

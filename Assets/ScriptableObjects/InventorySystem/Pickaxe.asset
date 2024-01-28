@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 4
   name: Pickaxe
-  playerDisplay: {fileID: 6786434168194617951, guid: a31bac8cff9d42949a8229cad248461c, type: 3}
+  price: 25
   sprite: {fileID: 21300000, guid: 1e4aa50e74878b04dbc7972bf27acd4f, type: 3}
   description: 
   stackSize: 1
-  type: 2
+  type: 1
+  playerDisplay: {fileID: 6786434168194617951, guid: a31bac8cff9d42949a8229cad248461c, type: 3}

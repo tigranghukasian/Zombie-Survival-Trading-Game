@@ -9,6 +9,10 @@ public abstract class Damageable : MonoBehaviour, IDamageable
     [field: SerializeField] public Transform HealthbarTransform { get; set; }
     public float Health { get; set; } = 100;
     [field: SerializeField] public float MaxHealth { get; set; } = 100;
+    
+    
+    public event Action<IDamageable> OnDestroyed;
+    public event Action<float, float> OnHealthChanged;
 
     private void Awake()
     {
@@ -31,8 +35,6 @@ public abstract class Damageable : MonoBehaviour, IDamageable
         }
     }
 
-    public event Action<IDamageable> OnDestroyed;
-    public event Action<float, float> OnHealthChanged;
     public virtual void Kill()
     {
         OnDestroyed?.Invoke(this);
