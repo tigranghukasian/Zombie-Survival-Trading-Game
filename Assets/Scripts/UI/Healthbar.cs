@@ -51,7 +51,7 @@ public class Healthbar : MonoBehaviour
     {
         inactivityTimer = 0f;
         inactive = false;
-        uiFader.FadeIn(0, null);
+        uiFader.FadeIn(0,0, null);
     }
     public void DestroyHealthbar()
     {
@@ -79,7 +79,7 @@ public class Healthbar : MonoBehaviour
         if (inactivityTimer >= inactivityThreshold && !inactive)
         {
             inactive = true;
-            uiFader.FadeOut(1,OnFadeOutCompleted);
+            uiFader.FadeOut(1,0,OnFadeOutCompleted);
         }
     }
 }

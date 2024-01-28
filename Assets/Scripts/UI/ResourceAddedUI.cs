@@ -18,15 +18,8 @@ public class ResourceAddedUI : MonoBehaviour
     {
         resourceImage.sprite = resourceSprite;
         amountText.text = $"+ {amount.ToString()}";
-        StartCoroutine(CallFadeAfterDelay(timeUntilFade));
+        GetComponent<UIFader>().FadeOut(fadeTime,timeUntilFade, OnFadeCompleted);
     }
-
-    IEnumerator CallFadeAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        GetComponent<UIFader>().FadeOut(fadeTime, OnFadeCompleted);
-    }
-
     private void Update()
     {
         transform.position += Vector3.up * floatSpeed * Time.deltaTime;

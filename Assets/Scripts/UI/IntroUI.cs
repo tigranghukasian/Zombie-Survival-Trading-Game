@@ -15,13 +15,16 @@ public class IntroUI : MonoBehaviour
     public static Action OnIntroFinished;
 
 
+    private void Awake()
+    {
+        GetComponent<CanvasGroup>().alpha = 1f;
+    }
+
     private void Start()
     {
         introText.text = "";
         StartCoroutine(TypeText());
         fader = GetComponent<UIFader>();
-        fader.FadeIn(0, null);
-       
     }
 
     IEnumerator TypeText()
@@ -33,7 +36,7 @@ public class IntroUI : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
         yield return new WaitForSeconds(delayAfterTyping);
-        fader.FadeOut(3, () =>
+        fader.FadeOut(3,0, () =>
         {
             OnIntroFinished?.Invoke();
             gameObject.SetActive(false);

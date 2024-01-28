@@ -51,7 +51,11 @@ public class WaveSpawner : MonoBehaviour
         }
         waveStateMachine.CurrentWaveState.FrameUpdate();
     }
-    
+
+    public int GetCycle()
+    {
+        return waveStateMachine.CycleCount;
+    }
     private void OnStateChangedCallback(WaveState newState)
     {
         OnStateChanged?.Invoke(newState);

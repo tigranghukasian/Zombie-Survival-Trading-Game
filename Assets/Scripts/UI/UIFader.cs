@@ -13,20 +13,21 @@ public class UIFader : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public void FadeOut(float duration, Action onFadeCompleted)
+    public void FadeOut(float duration, float startAfter = 0, Action onFadeCompleted = null)
     {
         StopAllCoroutines();
-        StartCoroutine(Fade(1, 0, duration, onFadeCompleted));
+        StartCoroutine(Fade(startAfter,1, 0, duration, onFadeCompleted));
     }
 
-    public void FadeIn(float duration, Action onFadeCompleted)
+    public void FadeIn(float duration, float startAfter = 0, Action onFadeCompleted = null)
     {
         StopAllCoroutines();
-        StartCoroutine(Fade(0, 1, duration, onFadeCompleted));
+        StartCoroutine(Fade(startAfter,0, 1, duration, onFadeCompleted));
     }
 
-    IEnumerator Fade(float alphaStart, float alphaEnd, float duration, Action onFadeCompleted)
+    IEnumerator Fade(float startAfter, float alphaStart, float alphaEnd, float duration, Action onFadeCompleted)
     {
+        yield return new WaitForSeconds(startAfter);
         float time = 0;
         canvasGroup.alpha = alphaStart;
 

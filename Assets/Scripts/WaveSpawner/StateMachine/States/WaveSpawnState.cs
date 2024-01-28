@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaveSpawnState : WaveState
 {
     private float spawnTimer;
-    private float callSpawnInterval = 5f;
+    private float callSpawnInterval = 10f;
     private int enemyCount;
     public WaveSpawnState(WaveSpawner _waveSpawner, WaveStateMachine _waveStateMachine) : base(_waveSpawner, _waveStateMachine)
     {
@@ -20,17 +20,19 @@ public class WaveSpawnState : WaveState
         base.FrameUpdate();
         Timer += Time.deltaTime;
         spawnTimer += Time.deltaTime;
-        if (Timer >= Duration)
-        {
-            waveStateMachine.ChangeState(waveSpawner.PeacefulState, waveSpawner.CalculatePeacefulStateDuration);
-            Timer = 0;
-        }
-
-        if (spawnTimer >= callSpawnInterval)
+        
+        if (spawnTimer >= callSpawnInterval && (Duration - Timer) >= 5f)
         {
             waveSpawner.SpawnEnemies(enemyCount);
             spawnTimer = 0;
         }
+
+        if (Timer >= Duration)
+        {
+            Timer = 0;
+            waveStateMachine.ChangeState(waveSpawner.PeacefulState, waveSpawner.CalculatePeacefulStateDuration);
+        }
+
 
     }
 }

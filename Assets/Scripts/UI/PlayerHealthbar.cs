@@ -12,7 +12,8 @@ public class PlayerHealthbar : MonoBehaviour
     [SerializeField] private float healthFillFullSize;
     [SerializeField] private Player player;
     [SerializeField] private UIFader damageOverlay;
-    [SerializeField] private float damageOverlayFadeHalfDuration = 0.4f;
+    [SerializeField] private float damageOverlayFadeInOrOutDuration = 0.4f;
+    [SerializeField] private float damageOverlayFadeOutStartAfter = 0.3f;
 
     private void Awake()
     {
@@ -21,9 +22,9 @@ public class PlayerHealthbar : MonoBehaviour
 
     public void UpdateHealth(float health, float maxHealth)
     {
-        damageOverlay.FadeIn(damageOverlayFadeHalfDuration, () =>
+        damageOverlay.FadeIn(damageOverlayFadeInOrOutDuration, 0,() =>
         {
-            damageOverlay.FadeOut(damageOverlayFadeHalfDuration, null);
+            damageOverlay.FadeOut(damageOverlayFadeInOrOutDuration, damageOverlayFadeOutStartAfter);
         });
         healthAmountText.text = health.ToString();
         float percentage = health / maxHealth;
