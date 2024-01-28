@@ -19,18 +19,20 @@ public class Enemy : Damageable, IDamager
     }
     
     #endregion
-    public EnemyStateMachine StateMachine { get; set; }
-    public EnemyBirthState BirthState { get; set; }
-    public EnemyIdleState IdleState { get; set; }
-    public EnemyChaseState ChaseState { get; set; }
-    public EnemyAttackState AttackState { get; set; }
-    public EnemyDeadState DeadState { get; set; }
-    public EnemyDestroyState DestroyState { get; set; }
+
+    private EnemyStateMachine stateMachine;
+    public EnemyBirthState BirthState { get; private set; }
+    public EnemyIdleState IdleState { get; private set; }
+    public EnemyChaseState ChaseState { get; private set; }
+    public EnemyAttackState AttackState { get; private set; }
+    public EnemyDeadState DeadState { get; private set; }
+    public EnemyDestroyState DestroyState { get; private set; }
 
     [field: SerializeField] public float AttackDamage { get; set; } = 15f;
     [field: SerializeField] public float HeadButtDamage { get; set; } = 15f;
     [field: SerializeField] public float IdleMovementRange { get; set; } = 5f;
     [field: SerializeField] public float ChaseSpeed { get; set; } = 3f;
+    [field: SerializeField] public float ChaseSpeedVariation { get; set; } = 0.8f;
     [field: SerializeField] public float AttackChargeSpeed { get; set; } = 4.5f;
     [SerializeField] private float sightRange;
     [SerializeField] private float attackRange;
@@ -51,20 +53,20 @@ public class Enemy : Damageable, IDamager
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
-        StateMachine = new EnemyStateMachine();
+        stateMachine = new EnemyStateMachine();
 
-        BirthState = new EnemyBirthState(this, StateMachine);
-        IdleState = new EnemyIdleState(this, StateMachine);
-        ChaseState = new EnemyChaseState(this, StateMachine);
-        AttackState = new EnemyAttackState(this, StateMachine);
-        DeadState = new EnemyDeadState(this, StateMachine);
-        DestroyState = new EnemyDestroyState(this, StateMachine);
+        BirthState = new EnemyBirthState(this, stateMachine);
+        IdleState = new EnemyIdleState(this, stateMachine);
+        ChaseState = new EnemyChaseState(this, stateMachine);
+        AttackState = new EnemyAttackState(this, stateMachine);
+        DeadState = new EnemyDeadState(this, stateMachine);
+        DestroyState = new EnemyDestroyState(this, stateMachine);
     }
 
     private void Start()
     {
         AreaBaker.Instance.OnNavmeshUpdate += OnNavmeshUpdate;
-        StateMachine.Initialize(BirthState);
+        stateMachine.Initialize(BirthState);
     }
     
 
@@ -84,7 +86,7 @@ public class Enemy : Damageable, IDamager
     private void Update()
     {
         CheckSightAndAttackRanges();
-        StateMachine.CurrentEnemyState.FrameUpdate();
+        stateMachine.CurrentEnemyState.FrameUpdate();
     }
 
     private void CheckSightAndAttackRanges()
@@ -118,7 +120,7 @@ public class Enemy : Damageable, IDamager
     
     private void FixedUpdate()
     {
-        StateMachine.CurrentEnemyState.PhysicsUpdate();
+        stateMachine.CurrentEnemyState.PhysicsUpdate();
 
     }
     
@@ -131,7 +133,7 @@ public class Enemy : Damageable, IDamager
      {
          base.Kill();
          Agent.enabled = false;
-         StateMachine.ChangeState(DeadState);
+         stateMachine.ChangeState(DeadState);
      }
 
      public void Destroy()
@@ -143,7 +145,7 @@ public class Enemy : Damageable, IDamager
 
      public void AnimationTriggerEvent(AnimationTriggerType triggerType)
      {
-         StateMachine.CurrentEnemyState.AnimationTriggerEvent(triggerType);
+         stateMachine.CurrentEnemyState.AnimationTriggerEvent(triggerType);
      }
 
      void OnDrawGizmos()
@@ -161,7 +163,7 @@ public class Enemy : Damageable, IDamager
              // Note: GUI calls need to be inside OnGUI method, so we use Handles
              UnityEditor.Handles.BeginGUI();
              
-             var stateName = StateMachine.CurrentEnemyState.ToString();
+             var stateName = stateMachine.CurrentEnemyState.ToString();
              
              // Pass stateName to GUIContent to calculate the correct size
              var textSize = GUI.skin.label.CalcSize(new GUIContent(stateName));

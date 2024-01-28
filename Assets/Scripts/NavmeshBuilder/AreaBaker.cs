@@ -58,30 +58,7 @@ public class AreaBaker : Singleton<AreaBaker>
     private void BuildNavmesh(bool async)
     {
         Bounds navmeshBounds = new Bounds(playerTransform.position, navmeshSize);
-        List<NavMeshModifier> modifiers;
-        if (surface.collectObjects == Unity.AI.Navigation.CollectObjects.Children)
-        {
-            modifiers = new List<NavMeshModifier>(surface.GetComponentsInChildren<NavMeshModifier>());
-        }
-        else
-        {
-            modifiers = NavMeshModifier.activeModifiers;
-        }
-
-        for (int i = 0; i < modifiers.Count; i++)
-        {
-            if ((surface.layerMask & (1 << modifiers[i].gameObject.layer)) == 1 &&
-                modifiers[i].AffectsAgentType(surface.agentTypeID))
-            {
-                markups.Add(new NavMeshBuildMarkup
-                {
-                    root = modifiers[i].transform,
-                    overrideArea = modifiers[i].overrideArea,
-                    area = modifiers[i].area,
-                    ignoreFromBuild = modifiers[i].ignoreFromBuild
-                }); 
-            }
-        }
+        
 
         if (surface.collectObjects == Unity.AI.Navigation.CollectObjects.Children)
         {

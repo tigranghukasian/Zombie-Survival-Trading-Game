@@ -157,7 +157,7 @@ MonoBehaviour:
   <IdleMovementRange>k__BackingField: 5
   <ChaseSpeed>k__BackingField: 2.8
   <AttackChargeSpeed>k__BackingField: 3.5
-  sightRange: 5
+  sightRange: 15
   attackRange: 0.8
   playerMask:
     serializedVersion: 2

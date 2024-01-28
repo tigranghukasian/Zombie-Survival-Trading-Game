@@ -34,7 +34,6 @@ public abstract class Inventory
 
     public void AddItem(Item item, int amount)
     {
-        Debug.Log("ADD ITEM " + item.name + " AMOUNT " + amount);
         if (item.stackSize <= 0)
         {
             return;

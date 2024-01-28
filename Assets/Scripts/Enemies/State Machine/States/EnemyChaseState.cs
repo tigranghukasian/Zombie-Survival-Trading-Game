@@ -27,7 +27,7 @@ public class EnemyChaseState : EnemyState
         base.EnterState();
         enemy.Agent.enabled = true;
         enemy.Agent.SetDestination(enemy.PlayerInSight.transform.position);
-        enemy.Agent.speed = enemy.ChaseSpeed;
+        enemy.Agent.speed = enemy.ChaseSpeed + Random.Range(0, enemy.ChaseSpeedVariation);
         enemy.Animator.SetBool("isRunning", true);
         enemy.EnemySoundPlayer.StartPlayingContinuousRandomSounds(EnemySoundPlayer.SoundType.Chase, 3f, 7f);
     }

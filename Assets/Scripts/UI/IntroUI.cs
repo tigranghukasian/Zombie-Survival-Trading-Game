@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,7 +12,8 @@ public class IntroUI : MonoBehaviour
     public float initialDelay = 0.5f;
     public float delayAfterTyping = 1f;
     private UIFader fader;
-    
+    public static Action OnIntroFinished;
+
 
     private void Start()
     {
@@ -19,6 +21,7 @@ public class IntroUI : MonoBehaviour
         StartCoroutine(TypeText());
         fader = GetComponent<UIFader>();
         fader.FadeIn(0, null);
+       
     }
 
     IEnumerator TypeText()
@@ -32,6 +35,7 @@ public class IntroUI : MonoBehaviour
         yield return new WaitForSeconds(delayAfterTyping);
         fader.FadeOut(3, () =>
         {
+            OnIntroFinished?.Invoke();
             gameObject.SetActive(false);
         });
     }

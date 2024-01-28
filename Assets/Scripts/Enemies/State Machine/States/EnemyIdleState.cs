@@ -25,7 +25,7 @@ public class EnemyIdleState : EnemyState
         base.FrameUpdate();
         if (enemy.IsInSightRange)
         {
-            enemy.StateMachine.ChangeState(enemy.ChaseState);
+            enemyStateMachine.ChangeState(enemy.ChaseState);
         }
     }
     //

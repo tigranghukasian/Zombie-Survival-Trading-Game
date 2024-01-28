@@ -12,7 +12,7 @@ public class PlayerHealthbar : MonoBehaviour
     [SerializeField] private float healthFillFullSize;
     [SerializeField] private Player player;
     [SerializeField] private UIFader damageOverlay;
-    [SerializeField] private float damageOverlayFadeHalfDuration = 0.2f;
+    [SerializeField] private float damageOverlayFadeHalfDuration = 0.4f;
 
     private void Awake()
     {

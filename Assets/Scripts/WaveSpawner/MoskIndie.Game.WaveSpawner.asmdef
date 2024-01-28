@@ -1,0 +1,16 @@
+{
+    "name": "MoskIndie.Game.WaveSpawner",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ee85a2b19d4db794f9bf404d15475aba"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
