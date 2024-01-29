@@ -33,6 +33,7 @@ public class Bullet : MonoBehaviour
         if (hasHit)
         {
             Hit(collliderHit);
+            return;
         }
         hasHit = false;
         timeAlive += Time.deltaTime;
@@ -56,6 +57,7 @@ public class Bullet : MonoBehaviour
 
     private void Hit(Collider other)
     {
+        var impactPoint = other.ClosestPoint(transform.position);
         Instantiate(bulletImpactPrefab, other.ClosestPoint(transform.position), Quaternion.identity);
         Destroy(gameObject);
         if (other.TryGetComponent(out Enemy enemy))

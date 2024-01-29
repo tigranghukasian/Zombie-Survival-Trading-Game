@@ -50,7 +50,6 @@ public class WaveInfoUI : MonoBehaviour
      private void Activate()
      {
          peacefulTimeParent.GetComponent<UIFader>().FadeIn(1f);
-         waveText.GetComponent<UIFader>().FadeIn(1f,1f);
      }
 
      private void UpdateUI(WaveState newState)

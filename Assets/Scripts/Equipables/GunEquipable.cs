@@ -12,11 +12,11 @@ public class GunEquipable : Equipable
 
     public override void Use()
     {
-        timePassed += Time.deltaTime;
-        if (timePassed > fireRate)
+        fireCoolDown += Time.deltaTime;
+        if (fireCoolDown > fireRate)
         {
             Fire();
-            timePassed = 0;
+            fireCoolDown = 0;
         }
     }
 

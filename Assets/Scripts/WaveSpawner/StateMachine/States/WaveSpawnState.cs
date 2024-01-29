@@ -14,14 +14,15 @@ public class WaveSpawnState : WaveState
     {
         base.EnterState(duration);
         enemyCount = waveSpawner.CalcualteSpawnStateEnemiesCount(waveStateMachine.CycleCount);
+        Debug.Log("ENTER WAVE SPAWN STATE" + Duration);
     }
     public override void FrameUpdate()
     {
         base.FrameUpdate();
         Timer += Time.deltaTime;
         spawnTimer += Time.deltaTime;
-        
-        if (spawnTimer >= callSpawnInterval && (Duration - Timer) >= 5f)
+
+        if (spawnTimer >= callSpawnInterval && (Duration - Timer) >= 4f)
         {
             waveSpawner.SpawnEnemies(enemyCount);
             spawnTimer = 0;

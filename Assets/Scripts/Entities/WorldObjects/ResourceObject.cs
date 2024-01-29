@@ -38,7 +38,7 @@ public class ResourceObject : Damageable
     public override void Kill()
     {
         base.Kill();
-        Player.InventoryHolder.Inventory.AddItem(resourceItem, amountToGive);
+        Player.PlayerInventoryHolder.Inventory.AddItem(resourceItem, amountToGive);
         GameUIManager.Instance.AddResourceAddedUI(resourceItem, amountToGive);
         DOTween.Kill(this);
         Destroy(gameObject);

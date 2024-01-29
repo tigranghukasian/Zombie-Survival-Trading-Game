@@ -6,7 +6,7 @@ using UnityEngine.Animations.Rigging;
 
 public class Player : MonoBehaviour, IDamageable, IDamager
 {
-    [SerializeField] private InventoryHolder inventoryHolder;
+    [SerializeField] private InventoryHolder playerInventoryHolder;
     [SerializeField] private InventoryHolder equipmentHolder;
 
     private int selectedEquipmentSlot = 0;
@@ -31,7 +31,7 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     
     public Interactable CurrentInteractable { get; set; }
     
-    public InventoryHolder InventoryHolder => inventoryHolder;
+    public InventoryHolder PlayerInventoryHolder => playerInventoryHolder;
     
     public int Money { get; set; }
 
@@ -249,6 +249,7 @@ public class Player : MonoBehaviour, IDamageable, IDamager
             if (equippedItem is PistolEquipable)
             {
                 PistolEquipable pistolEquippable = (PistolEquipable)equippedItem;
+                pistolEquippable.Inventory = playerInventoryHolder.Inventory;
                 pistolEquippable.PlayerTransform = transform;
                 equippedItem.transform.SetParent(toolParentTransform, false);
                 animator.SetBool("holdingPistol", true);
@@ -261,7 +262,7 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     {
         if (_other.TryGetComponent(out DroppedItem droppedItem))
         {
-            inventoryHolder.Inventory.AddItem(droppedItem.Item, droppedItem.Amount);
+            playerInventoryHolder.Inventory.AddItem(droppedItem.Item, droppedItem.Amount);
             Destroy(droppedItem.gameObject);
         }
     }

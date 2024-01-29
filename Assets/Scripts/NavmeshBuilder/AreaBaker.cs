@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -58,7 +59,19 @@ public class AreaBaker : Singleton<AreaBaker>
     private void BuildNavmesh(bool async)
     {
         Bounds navmeshBounds = new Bounds(playerTransform.position, navmeshSize);
-        
+        List<NavMeshModifierVolume> modifiers;
+        // modifiers = new List<Unity.AI.Navigation.NavMeshModifierVolume>(surface.GetComponentsInChildren<NavMeshModifierVolume>());
+        //
+        // for (int i = 0; i < modifiers.Count; i++)
+        // {
+        //     markups.Add(new NavMeshBuildMarkup
+        //     {
+        //         root = modifiers[i].transform,
+        //         overrideArea = true,
+        //         area = modifiers[i].area,
+        //         ignoreFromBuild = false
+        //     });
+        // }
 
         if (surface.collectObjects == Unity.AI.Navigation.CollectObjects.Children)
         {

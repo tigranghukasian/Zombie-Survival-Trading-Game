@@ -20,7 +20,7 @@ public class TradeItemUI : MonoBehaviour
         itemImage.sprite = tradeItem.item.sprite;
         itemName.text = tradeItem.item.name;
         amountText.text = $"x{tradeItem.amountSelling.ToString()}";
-        priceText.text = $"${tradeItem.item.price.ToString()}";
+        priceText.text = $"${tradeItem.item.price * tradeItem.amountSelling}";
         onBuyButtonClicked = _onBuyButtonClicked;
         buyButton.onClick.AddListener(BuyButtonClicked);
     }

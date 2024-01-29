@@ -14,7 +14,7 @@ public abstract class Equipable : MonoBehaviour, IEquipable
     }
     public Player Owner { get; set; }
     
-    protected float timePassed;
+    protected float fireCoolDown;
     public abstract void OnEquip();
     public abstract void Use();
 

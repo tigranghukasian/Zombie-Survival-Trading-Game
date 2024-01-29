@@ -7,7 +7,7 @@ public class PlayerInteractionDetector : MonoBehaviour
 {
     
     [SerializeField] private float interactionCheckRadius = 3f;
-    private Collider[] colliders = new Collider[10];
+    private Collider[] colliders = new Collider[20];
     private List<Interactable> interactables = new List<Interactable>();
     private Interactable currentInteractable;
     private Interactable previousInteractable;

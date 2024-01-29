@@ -32,6 +32,34 @@ public abstract class Inventory
         itemDatabase = _database;
     }
 
+    public bool RemoveItem(Item item, int amount)
+    {
+        int amountRemoved = 0;
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (amountRemoved == amount)
+            {
+                return true;
+            }
+            if (slots[i].Id == item.id)
+            {
+                if (amount >= slots[i].Amount)
+                {
+                    amountRemoved += slots[i].Amount;
+                    slots[i].UpdateSlot(-1, 0);
+                }
+                else
+                {
+                    int removeAmount = amount - amountRemoved;
+                    slots[i].UpdateSlot(slots[i].Id, slots[i].Amount - removeAmount);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public void AddItem(Item item, int amount)
     {
         if (item.stackSize <= 0)

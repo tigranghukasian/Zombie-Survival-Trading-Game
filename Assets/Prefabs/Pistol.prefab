@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2029698732343992054}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.1469, y: 0.2202, z: 0.0303}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2029698732519560311}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2029698732519560310
 GameObject:
@@ -55,6 +55,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2029698732519560310}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -64,7 +65,6 @@ Transform:
   - {fileID: 4666659741507159667}
   - {fileID: 7846274662715344675}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2029698732519560307
 MonoBehaviour:
@@ -79,17 +79,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRate: 0.1
+  bulletItem: {fileID: 11400000, guid: 471d24f020aceb64aa1e389fa723aec2, type: 2}
+  firePos: {fileID: 2029698732343992055}
+  range: 100
+  damage: 10
   bullet: {fileID: 2252201590836634245, guid: 039e8f645bc43804c983b55fd0f40e51, type: 3}
   trailPrefab: {fileID: 1332814054126480690, guid: bd095471e42b9e7488f07df9b9ada4f9, type: 3}
   muzzleFlash: {fileID: 5199840409740497285}
-  firePos: {fileID: 2029698732343992055}
-  range: 100
   fireSound: {fileID: 8300000, guid: 7d2f026e2f0e1ab4f99c5ce5b27da789, type: 3}
+  noAmmoSound: {fileID: 8300000, guid: d16366cfdd509914a9f91871ca93507b, type: 3}
 --- !u!1001 &5136908644828045720
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 2029698732519560311}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 56f872d185b69bd4e85b7b42a207cef8, type: 3}
@@ -141,6 +145,9 @@ PrefabInstance:
       value: pistol3rdPerson
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56f872d185b69bd4e85b7b42a207cef8, type: 3}
 --- !u!4 &4666659741507159667 stripped
 Transform:
@@ -152,6 +159,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 2029698732519560311}
     m_Modifications:
     - target: {fileID: 1851760835852333138, guid: e140ffc06c8a82942890fa8fab9b7538, type: 3}
@@ -203,6 +211,9 @@ PrefabInstance:
       value: MuzzleFlash5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e140ffc06c8a82942890fa8fab9b7538, type: 3}
 --- !u!114 &5199840409740497285 stripped
 MonoBehaviour:

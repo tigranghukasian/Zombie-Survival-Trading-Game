@@ -52,7 +52,7 @@ public class TradeUI : MonoBehaviour
         if (player.HasMoney(amountToSpend))
         {
             player.DecreaseMoney(amountToSpend);
-            player.InventoryHolder.Inventory.AddItem(tradeItem.item, tradeItem.amountSelling);
+            player.PlayerInventoryHolder.Inventory.AddItem(tradeItem.item, tradeItem.amountSelling);
         }
     }
 

@@ -8,8 +8,9 @@ public class LightingManager : MonoBehaviour
 {
     [SerializeField] private Light directionalLight;
     [SerializeField] private LightingPreset preset;
+    [SerializeField, Range(0, 360)] private float yRotation;
     [SerializeField, Range(0, 24)] private float timeOfDay;
-    [SerializeField] private float speedFactor;
+    [SerializeField] private float dayLength;
 
     private void Update()
     {
@@ -20,8 +21,9 @@ public class LightingManager : MonoBehaviour
 
         if (Application.isPlaying)
         {
+            float dayFraction = Time.deltaTime / dayLength;
              // Adjust this value to control the speed of the day/night cycle
-            timeOfDay += Time.deltaTime * speedFactor;
+            timeOfDay += Time.deltaTime * dayFraction;
             timeOfDay %= 24;
             UpdateLighting(timeOfDay / 24f);
         }
@@ -30,8 +32,6 @@ public class LightingManager : MonoBehaviour
         {
             UpdateLighting(timeOfDay / 24f);
         }
-
-
 
     }
 
@@ -44,7 +44,7 @@ public class LightingManager : MonoBehaviour
         {
             directionalLight.color = preset.DirectionalColor.Evaluate(timePercent);
             directionalLight.transform.localRotation =
-                Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, -70, 0));
+                Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, yRotation, 0));
         }
     }
     private void OnValidate()
