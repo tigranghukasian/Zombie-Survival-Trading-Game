@@ -13,6 +13,10 @@ public class UIFader : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
+    public void SetAlpha(float alpha)
+    {
+        canvasGroup.alpha = alpha;
+    }
     public void FadeOut(float duration, float startAfter = 0, Action onFadeCompleted = null)
     {
         StopAllCoroutines();

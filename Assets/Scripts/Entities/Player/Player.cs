@@ -16,6 +16,8 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     [SerializeField] private ToolDetection toolDetection;
     [SerializeField] private Rig pistolRig;
     [SerializeField] private PlayerInteractionDetector interactionDetector;
+    [SerializeField] private MovementController movementController;
+    [SerializeField] private RagdollEnabler ragdollEnabler;
     private bool playingAnimation;
     private Equipable equippedItem;
     
@@ -23,6 +25,8 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     [field:SerializeField] public float Health { get; set; }
     public event Action<IDamageable> OnDestroyed;
     public event Action<float, float> OnHealthChanged;
+    public event Action<float> OnDamaged;
+    public event Action OnDeath;
     public event Action<int> OnMoneyIncreased;
     public event Action<int> OnMoneyDecreased;
     public event Action<int> OnMoneyChanged;
@@ -77,18 +81,32 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     public void TakeDamage(float amount, IDamager damager)
     {
         Health -= amount;
-        OnHealthChanged?.Invoke(Health, MaxHealth);
         if (Health <= 0)
         {
             Health = 0;
             Kill();
         }
+
+        OnDamaged?.Invoke(amount);
+        OnHealthChanged?.Invoke(Health, MaxHealth);
+    }
+
+    public void AddHealth(float amount)
+    {
+        Health += amount;
+        if (Health >= MaxHealth)
+        {
+            Health = MaxHealth;
+        }
+        OnHealthChanged?.Invoke(Health, MaxHealth);
     }
 
  
     public void Kill()
     {
-        //TODO: LOSE WHEN PLAYER DIES
+        movementController.enabled = false;
+        ragdollEnabler.EnableRagdoll();
+        OnDeath?.Invoke();
     }
 
     private void SlotUpdated(InventorySlot slot)
@@ -115,7 +133,7 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     private void Update()
     {
         CheckKeysForSelectingEquipment();
-        
+
         if (!GameUIManager.Instance.IsMouseOverUI() && !InventorySelectionManager.IsSlotSelected)
         {
             
@@ -136,6 +154,11 @@ public class Player : MonoBehaviour, IDamageable, IDamager
                     equippedItem.Fire();
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamage(10, null);
         }
 
         HandleInteractLogic();

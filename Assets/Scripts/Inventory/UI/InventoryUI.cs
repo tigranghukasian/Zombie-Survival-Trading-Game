@@ -10,7 +10,8 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Dictionary<InventorySlot, InventorySlotUI> inventorySlotUis = new Dictionary<InventorySlot, InventorySlotUI>();
     [SerializeField] private GameObject inventorySlotUiPrefab;
     [SerializeField] private GameObject selectionUI;
-    
+    [SerializeField] private Player player;
+    [SerializeField] private AudioSource audioSource;
     
 
     public void Init(Inventory _inventory)
@@ -20,7 +21,7 @@ public class InventoryUI : MonoBehaviour
         {
             var invSlot = Instantiate(inventorySlotUiPrefab, transform);
             var slot = inventory.GetSlot(i);
-            invSlot.GetComponent<InventorySlotUI>().Init(slot, inventory);
+            invSlot.GetComponent<InventorySlotUI>().Init(this, slot, inventory, player);
             inventorySlotUis.Add(slot, invSlot.GetComponent<InventorySlotUI>());
         }
     }
@@ -51,6 +52,14 @@ public class InventoryUI : MonoBehaviour
                 return;
             }
             invSlot.UpdateItemUI(inventory.ItemDatabase.GetItem(updatedSlot.Id)?.sprite, updatedSlot.Amount);
+        }
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
         }
     }
     

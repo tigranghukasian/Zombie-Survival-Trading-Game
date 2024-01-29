@@ -15,15 +15,19 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Sprite rifleSlotSprite;
     [SerializeField] private Sprite toolSlotSprite;
     [SerializeField] private GameObject ghostObject;
+    private InventoryUI inventoryUI;
     private InventorySlot slot;
     private Inventory inventory;
     private ItemDatabase database;
+    private Player player;
 
-    public void Init(InventorySlot _slot, Inventory _inventory)
+    public void Init(InventoryUI _inventoryUI, InventorySlot _slot, Inventory _inventory, Player _player)
     {
+        inventoryUI = _inventoryUI;
         slot = _slot;
         inventory = _inventory;
         database = inventory.ItemDatabase;
+        player = _player;
 
         SetupSlotAllowedItemsBg();
     }
@@ -59,39 +63,64 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(!InventorySelectionManager.IsSlotSelected) 
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (slot.Id != -1)
+
+            if (slot.Id != -1 && database.GetItem(slot.Id) is ItemConsumable)
             {
-                var slotItem = database.GetItem(slot.Id);
-                if (slotItem is ItemStructure)
+                var consumable = (ItemConsumable)database.GetItem(slot.Id);
+                if (slot.Amount - 1 > 0)
                 {
-                    ItemStructure structureItem = (ItemStructure)slotItem;
-                    StructurePlacementManager.Instance.SetCurrentActiveStructurePrefab(structureItem.structurePrefab);
+                    slot.UpdateSlot(slot.Id, slot.Amount - 1);
                 }
-                SelectSlot();
-                CreateGhostItem();
-                slot.UpdateSlot(-1, 0);
+                else
+                {
+                    slot.UpdateSlot(-1, 0);
+                }
+                if (consumable.consumeSound != null)
+                {
+                    inventoryUI.PlaySound(consumable.consumeSound);
+                }
+             
+                player.AddHealth(consumable.restoreHealthAmount);
             }
-            
         }
-        else {
-            var selectedSlotReference = InventorySelectionManager.SelectedSlotReference;
-            var selectedSlotData = InventorySelectionManager.SelectedSlotData;
-            var newSlot = slot;
-            var selectedSlotItem = database.GetItem(selectedSlotData.Id);
-            var newSlotItem = database.GetItem(newSlot.Id);
-
-            if (selectedSlotReference.CanPlaceItem(newSlotItem) && newSlot.CanPlaceItem(selectedSlotItem))
+        else if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if(!InventorySelectionManager.IsSlotSelected) 
             {
-                Inventory.SwapItemsFromTempData(newSlot, selectedSlotReference, selectedSlotData);
+                if (slot.Id != -1)
+                {
+                    var slotItem = database.GetItem(slot.Id);
+                    if (slotItem is ItemStructure)
+                    {
+                        ItemStructure structureItem = (ItemStructure)slotItem;
+                        StructurePlacementManager.Instance.SetCurrentActiveStructurePrefab(structureItem.structurePrefab);
+                    }
+                    SelectSlot();
+                    CreateGhostItem();
+                    slot.UpdateSlot(-1, 0);
+                }
+            
             }
-            else
-            {
-                InventorySelectionManager.SelectedSlotReference.UpdateSlot(InventorySelectionManager.SelectedSlotData.Id,InventorySelectionManager.SelectedSlotData.Amount);
-            }
+            else {
+                var selectedSlotReference = InventorySelectionManager.SelectedSlotReference;
+                var selectedSlotData = InventorySelectionManager.SelectedSlotData;
+                var newSlot = slot;
+                var selectedSlotItem = database.GetItem(selectedSlotData.Id);
+                var newSlotItem = database.GetItem(newSlot.Id);
 
-            StartCoroutine(DelayedDeselect());
+                if (selectedSlotReference.CanPlaceItem(newSlotItem) && newSlot.CanPlaceItem(selectedSlotItem))
+                {
+                    Inventory.SwapItemsFromTempData(newSlot, selectedSlotReference, selectedSlotData);
+                }
+                else
+                {
+                    InventorySelectionManager.SelectedSlotReference.UpdateSlot(InventorySelectionManager.SelectedSlotData.Id,InventorySelectionManager.SelectedSlotData.Amount);
+                }
+
+                StartCoroutine(DelayedDeselect());
+            }
         }
     }
 

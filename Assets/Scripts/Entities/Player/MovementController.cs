@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class MovementController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class MovementController : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Animator animator;
     [SerializeField] private Transform aimTransform;
+    [SerializeField] private AudioClip footStepClip;
+    [SerializeField] private AudioSource audioSource;
     
     private Rigidbody rb;
     private Vector3 movementVector;
@@ -17,6 +20,7 @@ public class MovementController : MonoBehaviour
     private float offset;
     
     private float maxVelocityChange = 2f;
+    
 
     private void Start()
     {
@@ -75,5 +79,11 @@ public class MovementController : MonoBehaviour
         velocityChange.y = 0; // Prevent changes in the vertical direction
 
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
+    }
+
+    private void PlayFootStep()
+    {
+        audioSource.pitch = UnityEngine.Random.Range(0.8f, 1);
+        audioSource.PlayOneShot(footStepClip);
     }
 }

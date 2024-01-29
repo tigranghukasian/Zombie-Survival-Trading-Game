@@ -17,18 +17,24 @@ public class PlayerHealthbar : MonoBehaviour
 
     private void Awake()
     {
-        player.OnHealthChanged += UpdateHealth;
+        player.OnHealthChanged += HealthChanged;
+        player.OnDamaged += d => Damaged();
     }
 
-    public void UpdateHealth(float health, float maxHealth)
+    public void HealthChanged(float health, float maxHealth)
+    {
+        
+        healthAmountText.text = health.ToString();
+        float percentage = health / maxHealth;
+        healthFill.sizeDelta = new Vector2(healthFill.sizeDelta.x, percentage * healthFillFullSize);
+
+    }
+
+    public void Damaged()
     {
         damageOverlay.FadeIn(damageOverlayFadeInOrOutDuration, 0,() =>
         {
             damageOverlay.FadeOut(damageOverlayFadeInOrOutDuration, damageOverlayFadeOutStartAfter);
         });
-        healthAmountText.text = health.ToString();
-        float percentage = health / maxHealth;
-        healthFill.sizeDelta = new Vector2(healthFill.sizeDelta.x, percentage * healthFillFullSize);
-
     }
 }

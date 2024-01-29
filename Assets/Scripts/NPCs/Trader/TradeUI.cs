@@ -13,6 +13,10 @@ public class TradeUI : MonoBehaviour
     [SerializeField] private Transform tradeItemUiParent;
     [SerializeField] private GameObject tradeItemUiPrefab;
     [SerializeField] private InventoryHolder inventoryHolder;
+    [SerializeField] private TextMeshProUGUI traderNameText;
+    [SerializeField] private TextMeshProUGUI traderTitleText;
+    [SerializeField] private TextMeshProUGUI traderIntroductionText;
+    [SerializeField] private AudioSource audioSource;
 
     private ItemDatabase itemDatabase;
     private InventorySlot sellSlot;
@@ -37,6 +41,9 @@ public class TradeUI : MonoBehaviour
     public void ShowTradeUI(Trader trader)
     {
         gameObject.SetActive(true);
+        traderNameText.text = trader.TraderName;
+        traderTitleText.text = trader.TraderTitle;
+        traderIntroductionText.text = trader.TraderIntroductionText;
         fader.FadeIn(fadeDuration);
         for (int i = 0; i < trader.TradeItems.Count; i++)
         {
@@ -44,6 +51,12 @@ public class TradeUI : MonoBehaviour
             tradeItemUi.Init(trader.TradeItems[i], OnBuyButtonClicked);
             tradeItemUis.Add(tradeItemUi);
         }
+
+        if (trader.SpeechClip != null)
+        {
+            audioSource.PlayOneShot(trader.SpeechClip);
+        }
+        
     }
 
     private void OnBuyButtonClicked(TradeItem tradeItem)
@@ -78,5 +91,6 @@ public class TradeUI : MonoBehaviour
         {
             gameObject.SetActive(false);
         });
+        audioSource.Stop();
     }
 }

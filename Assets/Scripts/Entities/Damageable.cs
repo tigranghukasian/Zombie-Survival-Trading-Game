@@ -13,6 +13,7 @@ public abstract class Damageable : MonoBehaviour, IDamageable
     
     public event Action<IDamageable> OnDestroyed;
     public event Action<float, float> OnHealthChanged;
+    public event Action<float> OnDamaged;
 
     private void Awake()
     {
