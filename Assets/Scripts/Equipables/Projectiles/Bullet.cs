@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float lifeTime;
     [SerializeField] private GameObject bulletImpactPrefab;
+    [SerializeField] private LayerMask layerMask;
 
     private float damage;
     private bool hasHit;
@@ -17,7 +18,7 @@ public class Bullet : MonoBehaviour
     {
         damage = _damage;
         Debug.DrawRay(transform.position, transform.forward * 0.2f, Color.blue, 5f);
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position,  0.2f);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position,  0.2f, layerMask);
         foreach (Collider hitCollider in hitColliders)
         {
             if (hitCollider.gameObject != gameObject && hitCollider.TryGetComponent(out Enemy enemy))
@@ -44,7 +45,7 @@ public class Bullet : MonoBehaviour
         }
         Vector3 newPosition = transform.position + transform.forward * step;
         
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, step))
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit,  step, layerMask))
         {
             hasHit = true;
             newPosition = hit.point;

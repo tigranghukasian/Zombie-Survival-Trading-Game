@@ -46,7 +46,6 @@ public class Player : MonoBehaviour, IDamageable, IDamager
         pistolRig.weight = 0;
         interactionDetector.OnInteractableDetected += OnInteractableDetected;
         interactionDetector.OnInteractableUndetected += OnInteractableUnDetected;
-        Money = 200;
     }
 
     private void Start()

@@ -23,9 +23,10 @@ public class LightingManager : MonoBehaviour
         {
             float dayFraction = Time.deltaTime / dayLength;
              // Adjust this value to control the speed of the day/night cycle
-            timeOfDay += Time.deltaTime * dayFraction;
-            timeOfDay %= 24;
-            UpdateLighting(timeOfDay / 24f);
+            timeOfDay += Time.deltaTime;
+            timeOfDay %= dayLength;
+            float normalizedTimeOfDay = timeOfDay / dayLength * 24f;
+            UpdateLighting(normalizedTimeOfDay / 24f);
         }
 
         else

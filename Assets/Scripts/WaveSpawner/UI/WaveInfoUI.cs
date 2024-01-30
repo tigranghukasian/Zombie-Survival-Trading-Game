@@ -33,6 +33,7 @@ public class WaveInfoUI : MonoBehaviour
      private void OnDisable()
      {
          waveSpawner.OnStateChanged -= UpdateUI;
+         IntroUI.OnIntroFinished -= Activate;
      }
 
      private void Update()

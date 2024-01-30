@@ -96,6 +96,5 @@ public class MovementController : MonoBehaviour
     {
         audioSource.pitch = UnityEngine.Random.Range(0.8f, 1);
         audioSource.PlayOneShot(footStepClip);
-        Debug.Log("PLAY FOOTSTEP");
     }
 }

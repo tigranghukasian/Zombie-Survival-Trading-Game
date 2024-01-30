@@ -48,6 +48,9 @@ MonoBehaviour:
   speed: 30
   lifeTime: 8
   bulletImpactPrefab: {fileID: 3650932154430947723, guid: b0775e037ab8ad94e824d3a781ae0c7b, type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8119
 --- !u!1 &5221494431988018487
 GameObject:
   m_ObjectHideFlags: 0
