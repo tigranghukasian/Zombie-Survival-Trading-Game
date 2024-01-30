@@ -22,11 +22,10 @@ public class LightingManager : MonoBehaviour
         if (Application.isPlaying)
         {
             float dayFraction = Time.deltaTime / dayLength;
-             // Adjust this value to control the speed of the day/night cycle
-            timeOfDay += Time.deltaTime;
-            timeOfDay %= dayLength;
-            float normalizedTimeOfDay = timeOfDay / dayLength * 24f;
-            UpdateLighting(normalizedTimeOfDay / 24f);
+            // Adjust this value to control the speed of the day/night cycle
+            timeOfDay += dayFraction * 24f;
+            timeOfDay %= 24;
+            UpdateLighting(timeOfDay / 24f);
         }
 
         else

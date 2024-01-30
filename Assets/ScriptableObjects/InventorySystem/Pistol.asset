@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   name: Pistol
-  price: 100
+  price: 500
   sprite: {fileID: 21300000, guid: 5cf121b57e4875d4e9e516c010d8af16, type: 3}
   description: 
   stackSize: 1
