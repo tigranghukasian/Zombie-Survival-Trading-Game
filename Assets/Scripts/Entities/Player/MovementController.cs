@@ -13,6 +13,9 @@ public class MovementController : MonoBehaviour
     [SerializeField] private AudioClip footStepClip;
     [SerializeField] private AudioSource audioSource;
     
+    private float distanceTraveledSqr = 0f;
+    [SerializeField] float footstepDistanceSqr = 4f;
+    
     private Rigidbody rb;
     private Vector3 movementVector;
 
@@ -41,8 +44,6 @@ public class MovementController : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0, -angleToRotate + offset, 0));
             aimTransform.transform.position = rayPoint;
         }
-
-       
 
         float angle = Vector3.SignedAngle(Vector3.forward, directionToMousePos, Vector3.up);
 
@@ -79,11 +80,22 @@ public class MovementController : MonoBehaviour
         velocityChange.y = 0; // Prevent changes in the vertical direction
 
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
+        
+        float distanceMovedSqr = (rb.velocity * Time.fixedDeltaTime).sqrMagnitude;
+        distanceTraveledSqr += distanceMovedSqr;
+
+        
+        if (distanceTraveledSqr >= footstepDistanceSqr)
+        {
+            PlayFootStep();
+            distanceTraveledSqr = 0f; 
+        }
     }
 
     private void PlayFootStep()
     {
         audioSource.pitch = UnityEngine.Random.Range(0.8f, 1);
         audioSource.PlayOneShot(footStepClip);
+        Debug.Log("PLAY FOOTSTEP");
     }
 }
