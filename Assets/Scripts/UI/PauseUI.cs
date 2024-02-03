@@ -26,7 +26,6 @@ public class PauseUI : MonoBehaviour
 
     private void Pause()
     {
-
         pauseMenuFader.SetAlpha(0);
         pauseMenuFader.gameObject.SetActive(true);
         pauseMenuFader.FadeIn(0.3f, 0, () =>
@@ -46,11 +45,13 @@ public class PauseUI : MonoBehaviour
 
     public void Restart()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
 
     public void Quit()
     {
+        Time.timeScale = 1;
         Application.Quit();
     }
 }

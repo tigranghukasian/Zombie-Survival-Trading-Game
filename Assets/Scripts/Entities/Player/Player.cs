@@ -79,6 +79,10 @@ public class Player : MonoBehaviour, IDamageable, IDamager
     
     public void TakeDamage(float amount, IDamager damager)
     {
+        if (IsDead)
+        {
+            return;
+        }
         Health -= amount;
         if (Health <= 0)
         {
@@ -103,6 +107,7 @@ public class Player : MonoBehaviour, IDamageable, IDamager
  
     public void Kill()
     {
+        IsDead = true;
         movementController.enabled = false;
         ragdollEnabler.EnableRagdoll();
         OnDeath?.Invoke();
