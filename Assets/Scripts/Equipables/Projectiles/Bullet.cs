@@ -7,7 +7,8 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float lifeTime;
-    [SerializeField] private GameObject bulletImpactPrefab;
+    [SerializeField] private GameObject bulletImpactSparksPrefab;
+    [SerializeField] private GameObject bulletImpactBloodPrefab;
     [SerializeField] private LayerMask layerMask;
 
     private float damage;
@@ -59,11 +60,16 @@ public class Bullet : MonoBehaviour
     private void Hit(Collider other)
     {
         var impactPoint = other.ClosestPoint(transform.position);
-        Instantiate(bulletImpactPrefab, other.ClosestPoint(transform.position), Quaternion.identity);
+        
         Destroy(gameObject);
         if (other.TryGetComponent(out Enemy enemy))
         {
+            Instantiate(bulletImpactBloodPrefab, other.ClosestPoint(transform.position), Quaternion.identity);
             enemy.TakeDamage(damage, null);
+        }
+        else
+        {
+            Instantiate(bulletImpactSparksPrefab, other.ClosestPoint(transform.position), Quaternion.identity);
         }
     }
     public void OnTriggerEnter(Collider other)

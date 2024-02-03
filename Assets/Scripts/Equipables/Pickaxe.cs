@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Pickaxe : ToolEquipable
 {
-    
+    [SerializeField] private GameObject impactBloodPrefab;
     [SerializeField] private float damageValue;
     [SerializeField] private AudioClip hitSoundStone;
     [SerializeField] private AudioClip hitSoundFlesh;
@@ -17,6 +17,7 @@ public class Pickaxe : ToolEquipable
     
     public override void Fire()
     {
+        base.Fire();
         bool hasHit = false;
         IDamageable damageable = null;
         for (int i = 0; i < ToolDetection.DamageablesInRange.Count; i++)
@@ -38,6 +39,8 @@ public class Pickaxe : ToolEquipable
             }
             else if (damageable is Enemy)
             {
+                Enemy enemy = (Enemy)damageable;
+                Instantiate(impactBloodPrefab, enemy.transform.position, Quaternion.identity);
                 SoundManager.Instance.PlayAudioClip(hitSoundFlesh);
             }
             else

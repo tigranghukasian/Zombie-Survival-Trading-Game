@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRate: 1
+  impactBloodPrefab: {fileID: 675506545390187711, guid: 8d59341dc55619e4e93183910e2c33ad, type: 3}
   damageValue: 25
   hitSoundWood: {fileID: 8300000, guid: 996e21c68442afa4f9f61c0ce0e8f0a2, type: 3}
   hitSoundFlesh: {fileID: 8300000, guid: feebe26ced08b434dbbad53e38052659, type: 3}

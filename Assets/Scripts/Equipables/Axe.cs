@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Axe : ToolEquipable
 {
+    [SerializeField] private GameObject impactBloodPrefab;
     [SerializeField] private float damageValue;
     [SerializeField] private AudioClip hitSoundWood;
     [SerializeField] private AudioClip hitSoundFlesh;
@@ -16,6 +17,7 @@ public class Axe : ToolEquipable
     
     public override void Fire()
     {
+        base.Fire();
         bool hasHit = false;
         IDamageable damageable = null;
         for (int i = 0; i < ToolDetection.DamageablesInRange.Count; i++)
@@ -37,6 +39,8 @@ public class Axe : ToolEquipable
             }
             else if (damageable is Enemy)
             {
+                Enemy enemy = (Enemy)damageable;
+                Instantiate(impactBloodPrefab, enemy.transform.position, Quaternion.identity);
                 SoundManager.Instance.PlayAudioClip(hitSoundFlesh);
             }
             else

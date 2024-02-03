@@ -8,7 +8,7 @@ public class BulletTrail : MonoBehaviour
     public Transform bulletTransform { get; set; }
 
     [SerializeField] private float gunTrailDestroyAfter;
-    
+
     void Update()
     {
         if (bulletTransform != null)
@@ -17,13 +17,13 @@ public class BulletTrail : MonoBehaviour
         }
         else
         {
-            StartCoroutine(DestroyAfter(gunTrailDestroyAfter));
+            Destroy(gameObject);
         }
     }
 
-    IEnumerator DestroyAfter(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Destroy(gameObject);
-    }
+    // IEnumerator DestroyAfter(float delay)
+    // {
+    //     yield return new WaitForSeconds(delay);
+    //     Destroy(gameObject);
+    // }
 }

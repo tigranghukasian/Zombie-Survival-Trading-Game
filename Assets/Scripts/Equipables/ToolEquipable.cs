@@ -19,6 +19,6 @@ public class ToolEquipable : Equipable
 
     public override void Fire()
     {
-
+        
     }
 }
