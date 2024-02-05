@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class PistolEquipable : Equipable
 {
@@ -9,11 +10,12 @@ public class PistolEquipable : Equipable
     [SerializeField] private Transform firePos;
     [SerializeField] private float range = 100f;
     [SerializeField] private float damage = 10f;
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject trailPrefab;
     [SerializeField] private MuzzleFlash muzzleFlash;
     [SerializeField] private AudioClip fireSound;
     [SerializeField] private AudioClip noAmmoSound;
+    
 
     public Inventory Inventory { get; set; }
 
@@ -21,7 +23,8 @@ public class PistolEquipable : Equipable
 
     public override void OnEquip()
     {
-        
+        PoolManager.Instance.CreatePool(bulletPrefab);
+        PoolManager.Instance.CreatePool(trailPrefab);
     }
 
     public override void Use()
@@ -45,10 +48,12 @@ public class PistolEquipable : Equipable
             bool hasBullet = Inventory.RemoveItem(bulletItem, 1);
             if (hasBullet)
             {
-                var bulletObject = Instantiate(bullet,firePos.transform.position, PlayerTransform.rotation).GetComponent<Bullet>();
-                bulletObject.Init(damage);
-                var trailObject = Instantiate(trailPrefab,firePos.position, PlayerTransform.rotation);
+                var bulletObject = PoolManager.Instance.GetPooledObject(bulletPrefab, firePos.position, PlayerTransform.rotation );
+                Bullet bullet = bulletObject.GetComponent<Bullet>();
+                var trailObject = PoolManager.Instance.GetPooledObject(trailPrefab, firePos.position, PlayerTransform.rotation );
                 BulletTrail trail = trailObject.GetComponent<BulletTrail>();
+                bullet.Init(damage,trail);
+                trail.LifeTime = bullet.LifeTime;
                 trail.bulletTransform = bulletObject.transform;
                 muzzleFlash.Play();
                 SoundManager.Instance.PlayAudioClip(fireSound);

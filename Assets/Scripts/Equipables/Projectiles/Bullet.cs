@@ -3,8 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IPoolable
 {
+    public int PoolableId { get; set; }
+    public GameObject GameObject { get; set; }
+
+
     [SerializeField] private float speed;
     [SerializeField] private float lifeTime;
     [SerializeField] private GameObject bulletImpactSparksPrefab;
@@ -14,10 +18,14 @@ public class Bullet : MonoBehaviour
     private float damage;
     private bool hasHit;
     private Collider collliderHit;
+    private BulletTrail trail;
 
-    public void Init(float _damage)
+    public float LifeTime => lifeTime;
+
+    public void Init(float _damage, BulletTrail _trail)
     {
         damage = _damage;
+        trail = _trail;
         Debug.DrawRay(transform.position, transform.forward * 0.2f, Color.blue, 5f);
         Collider[] hitColliders = Physics.OverlapSphere(transform.position,  0.2f, layerMask);
         foreach (Collider hitCollider in hitColliders)
@@ -27,6 +35,20 @@ public class Bullet : MonoBehaviour
                 Hit(hitCollider);
             }
         }
+
+        PoolManager.Instance.CreatePool(bulletImpactSparksPrefab);
+        PoolManager.Instance.CreatePool(bulletImpactBloodPrefab);
+    }
+    
+    public void OnPoolableObjectGet()
+    {
+        
+    }
+
+    public void OnPoolableObjectRelease()
+    {
+        hasHit = false;
+        timeAlive = 0;
     }
 
     private float timeAlive = 0;
@@ -42,7 +64,8 @@ public class Bullet : MonoBehaviour
         float step = speed * Time.deltaTime;
         if (timeAlive >= lifeTime)
         {
-            Destroy(gameObject);
+            PoolManager.Instance.ReleasePooledObject(trail);
+            PoolManager.Instance.ReleasePooledObject(this);
         }
         Vector3 newPosition = transform.position + transform.forward * step;
         
@@ -60,20 +83,22 @@ public class Bullet : MonoBehaviour
     private void Hit(Collider other)
     {
         var impactPoint = other.ClosestPoint(transform.position);
+
+        PoolManager.Instance.ReleasePooledObject(trail);
+        PoolManager.Instance.ReleasePooledObject(this);
         
-        Destroy(gameObject);
         if (other.TryGetComponent(out Enemy enemy))
         {
-            Instantiate(bulletImpactBloodPrefab, other.ClosestPoint(transform.position), Quaternion.identity);
+            var bulletImpactBlood = PoolManager.Instance.GetPooledObject(bulletImpactBloodPrefab,
+                other.ClosestPoint(transform.position),  Quaternion.identity);
             enemy.TakeDamage(damage, null);
         }
         else
         {
-            Instantiate(bulletImpactSparksPrefab, other.ClosestPoint(transform.position), Quaternion.identity);
+            var bulletImpactSparks = PoolManager.Instance.GetPooledObject(bulletImpactSparksPrefab,
+                other.ClosestPoint(transform.position),  Quaternion.identity);
         }
     }
-    public void OnTriggerEnter(Collider other)
-    {
-        //Hit(other);
-    }
+
+
 }

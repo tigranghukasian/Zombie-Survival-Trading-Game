@@ -83,7 +83,7 @@ MonoBehaviour:
   firePos: {fileID: 2029698732343992055}
   range: 100
   damage: 10
-  bullet: {fileID: 2252201590836634245, guid: 039e8f645bc43804c983b55fd0f40e51, type: 3}
+  bulletPrefab: {fileID: 2252201590836634245, guid: 039e8f645bc43804c983b55fd0f40e51, type: 3}
   trailPrefab: {fileID: 1332814054126480690, guid: bd095471e42b9e7488f07df9b9ada4f9, type: 3}
   muzzleFlash: {fileID: 5199840409740497285}
   fireSound: {fileID: 8300000, guid: 7d2f026e2f0e1ab4f99c5ce5b27da789, type: 3}
