@@ -19,6 +19,7 @@ public class EnemyDeadState : EnemyState
         enemy.EnemySoundPlayer.PlayRandomTypeSoundOneShot(EnemySoundPlayer.SoundType.Death);
         enemy.EnemySoundPlayer.StopPlayingContinuousSounds();
     }
+    
 
     public override void FrameUpdate()
     {
@@ -27,6 +28,7 @@ public class EnemyDeadState : EnemyState
         if (destroyTimer > destroyAfter)
         {
             enemy.Destroy();
+            destroyTimer = 0;
         }
     }
 }

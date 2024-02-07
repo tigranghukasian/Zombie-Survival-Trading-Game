@@ -5,8 +5,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-public class Enemy : Damageable, IDamager
+public class Enemy : Damageable, IDamager, IPoolable
 {
+    
+    public int PoolableId { get; set; }
+    public GameObject GameObject { get; set; }
     #region Animation Triggers
 
     public enum AnimationTriggerType
@@ -19,6 +22,7 @@ public class Enemy : Damageable, IDamager
     }
     
     #endregion
+    
 
     private EnemyStateMachine stateMachine;
     public EnemyBirthState BirthState { get; private set; }
@@ -66,13 +70,11 @@ public class Enemy : Damageable, IDamager
     private void Start()
     {
         AreaBaker.Instance.OnNavmeshUpdate += OnNavmeshUpdate;
-        stateMachine.Initialize(BirthState);
     }
     
 
     private void OnNavmeshUpdate(Bounds bounds)
     {
-        //Debug.Log("On Navmesh Update" + bounds + ":" + transform.position);
         if (bounds.Contains(transform.position) && !IsDead)
         {
             Agent.enabled = true;
@@ -99,11 +101,6 @@ public class Enemy : Damageable, IDamager
             colliderNumber = Physics.OverlapSphereNonAlloc(transform.position, attackRange, hitColliders, playerMask);
             IsInAttackRange = CheckForPlayer(hitColliders, colliderNumber);
         }
-    }
-
-    public void PlayAttackAnimation()
-    {
-        
     }
     private bool CheckForPlayer(Collider[] colliders, int count)
     {
@@ -138,9 +135,7 @@ public class Enemy : Damageable, IDamager
 
      public void Destroy()
      {
-         
-         AreaBaker.Instance.OnNavmeshUpdate -= OnNavmeshUpdate;
-         Destroy(gameObject);
+         PoolManager.Instance.ReleasePooledObject(this);
      }
 
      public void AnimationTriggerEvent(AnimationTriggerType triggerType)
@@ -178,4 +173,15 @@ public class Enemy : Damageable, IDamager
          #endif
      }
 
+
+     public void OnPoolableObjectGet()
+     {
+         stateMachine.Initialize(BirthState);
+         OnSpawn();
+     }
+
+     public void OnPoolableObjectRelease()
+     {
+         
+     }
 }

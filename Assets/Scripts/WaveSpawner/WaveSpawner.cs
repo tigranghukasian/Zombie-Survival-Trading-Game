@@ -35,6 +35,7 @@ public class WaveSpawner : MonoBehaviour
         PeacefulState = new WavePeacefulState(this, waveStateMachine);
         SpawnState = new WaveSpawnState(this, waveStateMachine);
         IntroUI.OnIntroFinished += Activate;
+        PoolManager.Instance.CreatePool(enemyPrefab);
     }
 
     private void Activate()
@@ -84,9 +85,10 @@ public class WaveSpawner : MonoBehaviour
         for (int i = 0; i < numberOfEnemies; i++)
         {
             Vector3 spawnPoint = GetSpawnPoint();
-            if(spawnPoint != Vector3.zero) 
+            if(spawnPoint != Vector3.zero)
             {
-                Instantiate(enemyPrefab, spawnPoint, Quaternion.identity);
+                PoolManager.Instance.GetPooledObject(enemyPrefab, spawnPoint, Quaternion.identity);
+                //Instantiate(enemyPrefab, spawnPoint, Quaternion.identity);
             }
         }
     }

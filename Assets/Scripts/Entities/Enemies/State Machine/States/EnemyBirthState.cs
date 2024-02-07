@@ -10,14 +10,15 @@ public class EnemyBirthState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
-        //enemy.EnemySoundPlayer.PlayRandomTypeSoundOneShot(EnemySoundPlayer.SoundType.Birth);
+        enemy.GetComponent<Collider>().enabled = true;
+        enemy.RagdollEnabler.EnableAnimator();
+        enemy.Agent.enabled = true;
+        enemy.Agent.ResetPath();
     }
 
     public override void ExitState()
     {
         base.ExitState();
-        // enemy.Animator.transform.localPosition =
-        //     new Vector3(enemy.Animator.transform.localPosition.x, 0, enemy.Animator.transform.localPosition.z);
     }
     public override void AnimationTriggerEvent(Enemy.AnimationTriggerType triggerType)
     {

@@ -17,11 +17,17 @@ public abstract class Damageable : MonoBehaviour, IDamageable
 
     private void Awake()
     {
+       
+    }
+
+    public virtual void OnSpawn()
+    {
         if (HealthbarTransform == null)
         {
             HealthbarTransform = transform;
         }
         Health = MaxHealth;
+        IsDead = false;
     }
     public virtual void TakeDamage(float amount, IDamager Damager)
     {

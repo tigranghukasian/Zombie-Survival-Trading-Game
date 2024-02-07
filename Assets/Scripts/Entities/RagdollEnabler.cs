@@ -55,7 +55,7 @@ public class RagdollEnabler : MonoBehaviour
         }
     }
 
-    private void EnableAnimator()
+    public void EnableAnimator()
     {
         
         animator.enabled = true;
